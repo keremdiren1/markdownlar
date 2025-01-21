@@ -6,6 +6,6 @@ parametrix test
 
 ### CoordinatePlane.js
 
-‚‚‚
+```
 import React, { useRef, useEffect } from "react";
-‚‚‚
+```
