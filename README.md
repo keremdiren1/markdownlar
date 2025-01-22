@@ -56,3 +56,7 @@ Inside useEffect, the context ctx is obtained (using the first two lines), which
 ```
 
 In this part, the width, height, origin coordinates, and scale of the canvas is set.
+
+``` javascript
+
+```
