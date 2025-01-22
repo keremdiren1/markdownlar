@@ -358,3 +358,6 @@ At the last part of this code, the canvas is cleared and redrawn whenever anythi
 ```
 
 Finally, this `<canvas>` element is returned with a border that is 2 px wide.
+
+### MainPage.js
+
