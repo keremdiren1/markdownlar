@@ -217,3 +217,71 @@ The first two lines decide the width and color of the line (width is 1 and color
       });
     };
 ```
+
+This part draws the shapes.  
+First of all, the code checks which shape it should draw by using an if statement.
+
+``` javascript
+if (shape.shape === "circle") {
+          const { radius } = shape.parameters;
+
+         
+          const plane = shape.plane;
+
+          let [x, y, z] = shape.coordinates;
+
+        if (plane === "XYConstructionPlane") {
+          [x, y, z] = shape.coordinates; // Reassign without redeclaring
+        } else if (plane === "XZConstructionPlane") {
+          [x, z, y] = shape.coordinates; // Reassign order for XZ plane
+        } else if (plane === "YZConstructionPlane") {
+          [y, z, x] = shape.coordinates; // Reassign order for YZ plane
+        }
+
+
+
+          const steps = 100; // Number of steps for circle approximation
+          const points = [];
+
+          for (let i = 0; i < steps; i++) {
+            const angle = (i / steps) * Math.PI * 2;
+            let px, py, pz;
+
+            if (plane === "XYConstructionPlane") {
+              px = x + radius * Math.cos(angle);
+              py = y + radius * Math.sin(angle);
+              pz = z;
+            } else if (plane === "XZConstructionPlane") {
+              px = x + radius * Math.cos(angle);
+              py = y;
+              pz = z + radius * Math.sin(angle);
+            } else if (plane === "YZConstructionPlane") {
+              px = x;
+              py = y + radius * Math.cos(angle);
+              pz = z + radius * Math.sin(angle);
+            }
+
+            points.push(transform3DTo2D(px, py, pz));
+          }
+
+          ctx.strokeStyle = "blue";
+          ctx.lineWidth = 2;
+
+          ctx.beginPath();
+          points.forEach((point, index) => {
+            if (index === 0) {
+              ctx.moveTo(point.x, point.y);
+            } else {
+              ctx.lineTo(point.x, point.y);
+            }
+          });
+          ctx.closePath();
+          ctx.stroke();
+```
+
+The first shape I will write about is circle. The code block above will start only if the shape is a circle.  
+The first lines of the circle takes the radius, plane, and coordinates of the shape and assigns them to variables.  
+After that, the code approximates 100 points on the circle. It does this by first creating a for loop that will go through 0 to 100; the variable from the for loop is used to calculate the angle that is being used at each iteration. After that, the code decides the plane of the circle that will be shown on the 2D screen. Then, it calculates the coordinates of the point based on the plane and the angle that was calculated at the start of the iteration. Lastly, it adds the point to an array named points. After this, the for loop keeps iterating until it iterates a total of 100 times, as I said before.  
+After the for loop finishes, the code sets the color of the lines that will be drawn to blue in the line `ctx.strokeStyle = "blue";`, and it sets the width of the line to 2 in the next line.  
+At the end of this part, the code uses another for loop to go through each point in the points array.  
+Finally, we end up with a hectogon (polygon with 100 sides) in the same coordinates with our 3D circle, in a 2D plane.
