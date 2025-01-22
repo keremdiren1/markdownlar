@@ -34,3 +34,5 @@ A functional react component is like a function but it doesn't require a class e
     const centerY = canvas.height / 2;
     const unit = 16; // Scaling unit for smaller shapes
 ```
+
+These lines create a reference to the `<canva>` DOM element.
