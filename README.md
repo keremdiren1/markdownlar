@@ -16,5 +16,5 @@ This line imports required code from the react library.
 const CoordinatePlane = ({ shapes }) => {
 ```
 
-This line defines a functional react component.
+This line defines a functional react component.  
 aa
