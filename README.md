@@ -17,4 +17,4 @@ const CoordinatePlane = ({ shapes }) => {
 ```
 
 This line defines a functional react component.  
-aa
+A functional react component is like a function but it doesn't require a class etc. and it returns a react element.
