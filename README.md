@@ -35,4 +35,24 @@ A functional react component is like a function but it doesn't require a class e
     const unit = 16; // Scaling unit for smaller shapes
 ```
 
-These lines create a reference to the `<canva>` DOM element.
+The first line in this part creates a reference to the `<canvas>` DOM element, which gives us direct access to draw.  
+
+``` javascript
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+```
+
+Inside useEffect, the context ctx is obtained (using the first two lines), which provides us some drawing methods.  
+
+``` javascript
+    // Canvas size and configuration
+    canvas.width = 800;
+    canvas.height = 700;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const unit = 16; // Scaling unit for smaller shapes
+```
+
+In this part, the width, height, origin coordinates, and scale of the canvas is set.
