@@ -283,5 +283,5 @@ The first shape I will write about is circle. The code block above will start on
 The first lines of the circle takes the radius, plane, and coordinates of the shape and assigns them to variables.  
 After that, the code approximates 100 points on the circle. It does this by first creating a for loop that will go through 0 to 100; the variable from the for loop is used to calculate the angle that is being used at each iteration. After that, the code decides the plane of the circle that will be shown on the 2D screen. Then, it calculates the coordinates of the point based on the plane and the angle that was calculated at the start of the iteration. Lastly, it adds the point to an array named points. After this, the for loop keeps iterating until it iterates a total of 100 times, as I said before.  
 After the for loop finishes, the code sets the color of the lines that will be drawn to blue in the line `ctx.strokeStyle = "blue";`, and it sets the width of the line to 2 in the next line.  
-At the end of this part, the code uses another for loop to go through each point in the points array.  
-Finally, we end up with a hectogon (polygon with 100 sides) in the same coordinates with our 3D circle, in a 2D plane.
+At the end of this part, the code uses another for loop to draw a line to each point in the points array.  
+Finally, this for loop causes us to end up with a hectogon (polygon with 100 sides) in the same coordinates with our 3D circle, in a 2D plane.
