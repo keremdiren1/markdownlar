@@ -279,9 +279,64 @@ if (shape.shape === "circle") {
           ctx.stroke();
 ```
 
-The first shape I will write about is circle. The code block above will start only if the shape is a circle.  
-The first lines of the circle takes the radius, plane, and coordinates of the shape and assigns them to variables.  
+The first shape I will write about is the circle. The code block above will start only if the shape is a circle.  
+The first lines of this part take the radius, plane, and coordinates of the circle and assigns them to variables.  
 After that, the code approximates 100 points on the circle. It does this by first creating a for loop that will go through 0 to 100; the variable from the for loop is used to calculate the angle that is being used at each iteration. After that, the code decides the plane of the circle that will be shown on the 2D screen. Then, it calculates the coordinates of the point based on the plane and the angle that was calculated at the start of the iteration. Lastly, it adds the point to an array named points. After this, the for loop keeps iterating until it iterates a total of 100 times, as I said before.  
 After the for loop finishes, the code sets the color of the lines that will be drawn to blue in the line `ctx.strokeStyle = "blue";`, and it sets the width of the line to 2 in the next line.  
 At the end of this part, the code uses another for loop to draw a line to each point in the points array.  
 Finally, this for loop causes us to end up with a hectogon (polygon with 100 sides) in the same coordinates with our 3D circle, in a 2D plane.
+
+``` javascript
+        } else if (shape.shape === "rectangle") {
+          const { width, height } = shape.parameters;
+          const [x, y, z] = shape.coordinates;
+          const plane = shape.plane;
+
+          const corners = [];
+
+          if (plane === "XYConstructionPlane") {
+            corners.push(
+              transform3DTo2D(x, y, z),
+              transform3DTo2D(x + width, y, z),
+              transform3DTo2D(x + width, y + height, z),
+              transform3DTo2D(x, y + height, z)
+            );
+          } else if (plane === "XZConstructionPlane") {
+            corners.push(
+              transform3DTo2D(x, y, z),
+              transform3DTo2D(x + width, y, z),
+              transform3DTo2D(x + width, y, z + height),
+              transform3DTo2D(x, y, z + height)
+            );
+          } else if (plane === "YZConstructionPlane") {
+            corners.push(
+              transform3DTo2D(x, y, z),
+              transform3DTo2D(x, y + width, z),
+              transform3DTo2D(x, y + width, z + height),
+              transform3DTo2D(x, y, z + height)
+            );
+          }
+
+          ctx.strokeStyle = "green";
+          ctx.lineWidth = 2;
+
+          ctx.beginPath();
+          corners.forEach((corner, index) => {
+            if (index === 0) {
+              ctx.moveTo(corner.x, corner.y);
+            } else {
+              ctx.lineTo(corner.x, corner.y);
+            }
+          });
+          ctx.closePath();
+          ctx.stroke();
+        }
+      });
+    };
+```
+
+Now, I will write about the rectangle. The code block above will start only if the shape is a rectangle (or a square).  
+The first few lines take the coordinates, plane, width, and height of the rectangle. It then creates an empty array named corners, which will contain the coordinates of the rectangle.  
+The next lines with the if statement adds the corner coordinates of the rectangle to the corners array, which are calculated based on the plane of the rectangle.  
+The code then (in the next 2 lines after the if statement) sets the color of the line that will be drawn to green and makes the width of it 2. After this, a for loop is created to make a line that goes to each point, one by one.  
+This results in a 2D rectangle that is in the same coordinates as our 3D shape.
