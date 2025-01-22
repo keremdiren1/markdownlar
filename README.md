@@ -340,3 +340,4 @@ The first few lines take the coordinates, plane, width, and height of the rectan
 The next lines with the if statement adds the corner coordinates of the rectangle to the corners array, which are calculated based on the plane of the rectangle.  
 The code then (in the next 2 lines after the if statement) sets the color of the line that will be drawn to green and makes the width of it 2. After this, a for loop is created to make a line that goes to each point, one by one.  
 This results in a 2D rectangle that is in the same coordinates as our 3D shape.
+
