@@ -341,3 +341,20 @@ The next lines with the if statement adds the corner coordinates of the rectangl
 The code then (in the next 2 lines after the if statement) sets the color of the line that will be drawn to green and makes the width of it 2. After this, a for loop is created to make a line that goes to each point, one by one.  
 This results in a 2D rectangle that is in the same coordinates as our 3D shape.
 
+``` javascript
+    // Clear and redraw the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawAxes();
+    drawShapes();
+  }, [shapes]);
+```
+
+At the last part of this code, the canvas is cleared and redrawn whenever anything changes.
+
+``` javascript
+
+  return <canvas ref={canvasRef} width={1200} height={800} style={{ border: "2px solid black" }} />;
+};
+```
+
+Finally, this `<canvas>` element is returned with a border that is 2 px wide.
