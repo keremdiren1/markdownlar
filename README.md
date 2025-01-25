@@ -334,4 +334,18 @@ This part creates some constants that will be used to set the canvas and shapes.
   };
 ```
 
-The array above is created so that when a color is needed for a specific sitation, it could be accessed directly from this array. For example, a circle would be drawn blue, so the color next to circle is `"blue"`.
+The array above is created so that when a color is needed for a specific sitation, it could be accessed directly from this array. For example, every circle would be drawn blue, so the color written next to circle is blue.
+
+```javascript
+  useEffect(() => {
+```
+
+``` javascript
+  }, [shapes]);
+```
+
+The line in the first code block above is used so that the code could be automatically re-run whenever shapes is changed. This condition can be seen in the second code block above, which is the end of the `useEffect(() => {`.
+
+``` javascript
+
+```
