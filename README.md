@@ -671,7 +671,7 @@ I will first start by explaining this function, which is the main drawing functi
 
 This code block creates a function to create 2D circle based on the inputted information about the shape. The first few lines set the radius of the shape to a constant named radius; they also set x, y, and z variables depending on the coordinates of the shape and create an empty points array, which will be used to contain the corner points of the shape (circles don't have corners, so the shape will be a polygon with 100 corners, which will look similar to the circle we desire).  
 The for loop iterates as much as STEPS, which has a value of 100. Every value of i from the for loop is used to calculate which angle of the circle the current point (the point that is being determined at the current iteration) is at. For example, if the for loop is at the 2nd iteration, the angle of the point is (1/100) * 2 * pi, which is 1% of a maximum value of 2pi. The for loop also determines the variables of px, py, and pz, which are the coordinates of the current point. These points are determined depending on the current angle, radius, and the plane (the plane can be XY, XZ, or YZ plane). After the coordinate of the point is determined, the coordinate is added to the points array after being transformed to 2D coordinates. Basically, the for loop is used to determine 100 points on the given circle.  
-After this, the points array and the COLORS.circle color (blue) is inputted into the drawPath method. I will be explaining the drawPath method after explaining the methods of the shapes.
+After this, the points array and the COLORS.circle color (blue) is inputted into the drawPath function. I will be explaining the drawPath function after explaining the functions of the shapes.
 
 ``` javascript
     const drawRectangle = (shape) => {
@@ -764,7 +764,7 @@ The code block above is used to create a function that's used to create a 2D rec
     };
 ```
 
-The code block above is used to create a function which's purpose is to draw a 2D triangle. The code first destructures the side lengths and the coordinate of the triangle. Then, it calculates the angle by using the lengths it took. After this, the code creates a points array, which will be used to contain the coordinates of the corner points of the triangle. Finally, the coordinates of the corner points are calculated based on the plane, side lengths, and the angle determined before, which are then added to the points array (the coordinates are turned to 2D before being added, of course). Like the other shape drawing methods, the drawPath method is called to draw the triangle based on the points array and the COLORS.triangle color.
+The code block above is used to create a function which's purpose is to draw a 2D triangle. The code first destructures the side lengths and the coordinate of the triangle. Then, it calculates the angle by using the lengths it took. After this, the code creates a points array, which will be used to contain the coordinates of the corner points of the triangle. Finally, the coordinates of the corner points are calculated based on the plane, side lengths, and the angle determined before, which are then added to the points array (the coordinates are turned to 2D before being added, of course). Like the other shape drawing functions, the drawPath function is called to draw the triangle based on the points array and the COLORS.triangle color.
 
 ``` javascript
     const drawEllipse = (shape) => {
@@ -801,7 +801,9 @@ The code block above is used to create a function which's purpose is to draw a 2
     };
 ```
 
-TEXT
+The code block above contains a function that is used to draw a 2D ellipse. First, the code takes the major radius, minor radius, and the coordinates from the ellipse. It then creates a points array, which will contain 100 coordinates of points placed in the shape of the desired 2D ellipse. After this, a for loop that iterates as much as STEPS, which has the value of 100, is created.  
+This for loop first determines an angle based on the current value of i. It then calculates the x, y, and z coordinates of the current point (the point that is in the process of being determined in the current iteration) based on the plane, angle, and the minor and major radius of the ellipse. It then adds this coordinate to the points array after turning it into 2D. The for loop repeats this a 100 times, while only changing the current angle at each iteration (as I said before).  
+After the for loop ends, the drawPath function is called to draw the ellipse based on the points array and the COLORS.ellipse color.
 
 ``` javascript
     // Helper function to draw paths
@@ -823,3 +825,12 @@ TEXT
 
 I will now explain this function, which draws the shapes. This function first gets the color and points as an input. The color is inputted based on the shape that is being drawn (it's blue if it's a circle, for example). The points is the array of coordinates that was created before this function was called.  
 This function first sets the color of the line that will be drawn to the color inputted and the line width to 2. Then, it creates a for each loop that creates lines to connect the points in the points array.
+
+``` javascript
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawAxes();
+    drawShapes();
+```
+
+We are now at the end of the explanation of CoordinatePlane.js. The code block above clears the current canvas and calls the methods named drawAxes and drawShapes, which draw the x, y, and z axes and the current shapes.  
+I also want to say that this code returns the canvas it created with the canvas having a black border with 2px thickness.
