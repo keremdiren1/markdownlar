@@ -834,3 +834,6 @@ This function first sets the color of the line that will be drawn to the color i
 
 We are now at the end of the explanation of CoordinatePlane.js. The code block above clears the current canvas and calls the methods named drawAxes and drawShapes, which draw the x, y, and z axes and the current shapes.  
 I also want to say that this code returns the canvas it created with the canvas having a black border with 2px thickness.
+
+### MainPage.js
+
