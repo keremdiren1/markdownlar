@@ -6,7 +6,7 @@ parametrix test
 
 ### CoordinatePlane.js
 
-```
+``` javascript
 import React, { useRef, useEffect } from "react";
 
 const CoordinatePlane = ({ shapes }) => {
