@@ -1128,7 +1128,8 @@ This part sets a style to the button. According to this part of the code, the bu
   - has a white text color
   - has a white border as thick as 2px
   - changes the cursor to a pointer when it's on the button
-  - has a transition speed of 0.2 seconds. This means that the button will change into another color, for example, in 0.2 seconds instead of instantly.  
+  - has a transition speed of 0.2 seconds. This means that the button will change into another color, for example, in 0.2 seconds instead of instantly.
+
 Every line in this list represents a line in the code block above. The first line in the list represents the `fontSize: "1rem",` line in the code block etc.
 
 ``` javascript
