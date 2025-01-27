@@ -942,7 +942,7 @@ This line creates a react functional component called MainPage.
   const navigate = useNavigate();
 ```
 
-This line gives us the ability to navigate to different pages. For example, `navigate("/split")` makes the page navigate to SplitSelection, which is a different page.
+This line gives us the ability to navigate to different pages. For example, `navigate("/split")` makes the user navigate to SplitSelection, which is a different page.
 
 ``` javascript
   return React.createElement(
@@ -1041,7 +1041,10 @@ This part contains the react elements that will be returned by this functional r
     },
 ```
 
-This code block creates a full page with a black background, centered white content, and a retro font.
+This code block creates a full page with  
+  - a black background
+  - centered white content
+  - a retro font.
 
 ``` javasctipt
     // Title
@@ -1060,7 +1063,11 @@ This code block creates a full page with a black background, centered white cont
     ),
 ```
 
-This part creates a title which is as big as 4 rem units, is uppercase, and has "PARAMETRIX" written. The "X" in "PARAMETRIX" is white, while other text is orange.
+This part creates a title which  
+  - is as big as 4 rem units
+  - is uppercase
+  - has "PARAMETRIX" written.
+    - The "X" in "PARAMETRIX" is white, while "PARAMETRI" is orange.
 
 ``` javascript
     // Start Button
@@ -1094,3 +1101,4 @@ This part creates a title which is as big as 4 rem units, is uppercase, and has 
     ),
 ```
 
+This code block creates a button. The button has text as big as 1 rem unit, is uppercase, has a retro style font, has a black background
