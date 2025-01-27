@@ -1101,4 +1101,62 @@ This part creates a title which
     ),
 ```
 
-This code block creates a button. The button has text as big as 1 rem unit, is uppercase, has a retro style font, has a black background
+This code block creates a button. I will be explaining what the code of the button does in parts.
+
+``` javascript
+React.createElement(
+      "button",
+      {
+        style: {
+          fontSize: "1rem",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P'",
+          backgroundColor: "black",
+          color: "white",
+          border: "2px solid white",
+          padding: "10px 20px",
+          cursor: "pointer",
+          transition: "transform 0.2s, background-color 0.2s",
+        },
+```
+
+This part sets a style to the button. According to this part of the code, the button  
+  - has text as big as 1 rem unit
+  - is uppercase
+  - has a retro style font
+  - has a black background
+  - has a white text color
+  - has a white border as thick as 2px
+  - changes the cursor to a pointer when it's on the button
+  - has a transition speed of 0.2 seconds. This means that the button will change into another color, for example, in 0.2 seconds instead of instantly.
+Every line in this list represents a line in the code block above. The first line in the list represents the `fontSize: "1rem",` line in the code block etc.
+
+``` javascript
+        onClick: () => navigate("/split"), // Navigate to SplitSelection
+        onMouseEnter: (e) => {
+          e.target.style.backgroundColor = "#FFA500";
+          e.target.style.color = "black";
+          e.target.style.transform = "scale(1.1)";
+        },
+```
+
+This part gives the button the ability to be clicked and a hover effect.  
+The first line in this code block is responsible for the clicking effect. The first line starts with `onClick`, which means its purpose is about clicking the button. The rest of the line has `navigate("/split")`, which means that when the button is clicked, it will change the URL to /split. /split is the part about SplitSelection.js.  
+The rest of the code is about the cursor hovering on the button. When the curson hovers on the button, the button will  
+  - have an orange background color, instead of black
+  - have a black text color, instead of white
+  - will be 10% bigger than before
+
+``` javascript
+        onMouseLeave: (e) => {
+          e.target.style.backgroundColor = "black";
+          e.target.style.color = "white";
+          e.target.style.transform = "scale(1)";
+        },
+```
+
+This part of the code is about what will happen when the cursor stops hovering on the button. When the mouse stops hovering, the button will  
+  - change to a black background color, like it was before
+  - change to a white text color, like it was before
+  - get to 100% size, instead of 110%
+Basically, the button will revert to how it was before the cursor started hovering on it.
