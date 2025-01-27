@@ -1158,5 +1158,6 @@ The rest of the code is about the cursor hovering on the button. When the curson
 This part of the code is about what will happen when the cursor stops hovering on the button. When the mouse stops hovering, the button will  
   - change to a black background color, like it was before
   - change to a white text color, like it was before
-  - get to 100% size, instead of 110%  
+  - get to 100% size, instead of 110%
+
 Basically, the button will revert to how it was before the cursor started hovering on it.
