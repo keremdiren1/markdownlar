@@ -835,6 +835,8 @@ This function first sets the color of the line that will be drawn to the color i
 We are now at the end of the explanation of CoordinatePlane.js. The code block above clears the current canvas and calls the methods named drawAxes and drawShapes, which draw the x, y, and z axes and the current shapes.  
 I also want to say that this code returns the canvas it created with the canvas having a black border with 2px thickness.
 
+### ThreeDView.js
+
 ### MainPage.js
 
 ``` javascript
@@ -1142,7 +1144,7 @@ Every line in this list represents a line in the code block above. The first lin
 ```
 
 This part gives the button the ability to be clicked and a hover effect.  
-The first line in this code block is responsible for the clicking effect. The first line starts with `onClick`, which means its purpose is about clicking the button. The rest of the line has `navigate("/split")`, which means that when the button is clicked, it will change the URL to /split. /split is the part about SplitSelection.js.  
+The first line in this code block is responsible for the clicking effect. The first line starts with `onClick`, which means its purpose is about clicking the button. The rest of the line has `navigate("/split")`, which means that when the button is clicked, it will change the URL to `/split`. `/split` is the part about SplitSelection.js.  
 The rest of the code is about the cursor hovering on the button. When the curson hovers on the button, the button will  
   - have an orange background color, instead of black
   - have a black text color, instead of white
@@ -1162,3 +1164,44 @@ This part of the code is about what will happen when the cursor stops hovering o
   - get to 100% size, instead of 110%
 
 Basically, the button will revert to how it was before the cursor started hovering on it.
+
+``` javascript
+      "Start"
+```
+
+This line means that the text inside the button will write `Start`.
+
+``` javascript
+    // Blinking Text
+    React.createElement(
+      "p",
+      {
+        style: {
+          marginTop: "30px",
+          fontSize: "0.7rem",
+          color: "#bbb",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P'",
+          animation: "blink 2s infinite",
+        },
+      },
+      "Press Enter to Start"
+    )
+  );
+```
+
+This code block is the last part of MainPage.js. This code block creates a paragraph type text. The text  
+  - is as big as 0.7 rem units
+  - is light gray
+  - is uppercase
+  - has a retro font
+  - blinks every 2 seconds.
+  - has `Press Enter to Start` written
+
+### Select.js
+
+### SplitSelection.js
+
+### Wildcard.js
+
+### ParametrixView.js
