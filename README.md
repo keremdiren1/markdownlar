@@ -1914,6 +1914,242 @@ This part creates a grid. The grid
 ```
 
 This code block creates buttons that will be placed on the grid previously made. The number of buttons are equal to the number of levels. Basically, 9 buttons with similar properties are made. The only difference in their code is that each instance of `{level}` in this code block is replaced by the number of the button. For example, the 5th button would have 5 at every instance of `{level}` instead of `{level}` itself. Now I will start to explain the lines.  
-The buttons  
+The level buttons  
+  - have black background
+  - have white text
+  - have white borders as wide as 2px
+  - change the cursor to a pointer when they hover on it
+  - have a retro font, which changes to a font from cursive if it does not load
+  - have a transition time of 0.2 seconds
+
+The level buttons navigate to the corresponding level page when clicked.
+
+When the cursor is hovering on the level buttons, the buttons  
+  - get a shadow effect
+  - get bigger by 10%
+
+When the cursor stops hovering on the level buttons, the buttons turn back to how they were before. Also, the level buttons have the corresponding number written on them.
+
+``` javascript
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/split")}
+        style={{
+          marginTop: "40px",
+          padding: "10px 20px",
+          fontSize: "1.2rem",
+          color: "white",
+          backgroundColor: "transparent",
+          border: "2px solid white",
+          cursor: "pointer",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P', cursive",
+          transition: "transform 0.2s, box-shadow 0.2s",
+          marginBottom: "200px",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.boxShadow = "0 0 10px white";
+          e.target.style.transform = "scale(1.1)";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.boxShadow = "none";
+          e.target.style.transform = "scale(1)";
+        }}
+      >
+        Back
+      </button>
+```
+
+This code block creates a back button. The button navigates back to the SplitSelection.js page when clicked.  
+This button  
+  - is 40px under the element above it
+  - has a text size of 1.2 rem
+  - has a white text color
+  - has a transparent background
+  - has a white border with 2px thickness
+  - changes the cursor to a pointer when it hovers on it
+  - has a retro font that changes to a font from the cursive font family when it can't load
+  - has a transition time of 0.2 seconds
+  - is 200px above the element under it
+
+When the cursor hovers on it, the button  
+  - gets a shadow effect
+  - increases in size by 10%
+
+When the cursor stops hovering over the button, the button goes back to how it was before. Also, the button has Back written on it.
+
+``` javascript
+      {/* Wildcard Button */}
+      <button
+        style={{
+          marginTop: "0px", // Further below
+          padding: "5px 10px",
+          fontSize: "1.5rem",
+          color: "white",
+          backgroundColor: "#af8636",
+          border: "2px solid white",
+          cursor: "pointer",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P', cursive",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.boxShadow = "0 0 10px white";
+          e.target.style.transform = "scale(1.1)";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.boxShadow = "none";
+          e.target.style.transform = "scale(1)";
+        }}
+        onClick={() => navigate("/w")}
+      >
+        Wildcard
+      </button>
+    </div>
+  );
+};
+```
+
+This code block creates a button. This button  
+  - is right under the element above it
+  - has a text size of 1.5 rem
+  - has a white text color
+  - has an ember background color
+  - has a white border as thick as 2px
+  - changes the cursor to a pointer when it hovers on it
+  - has an uppercase text
+  - has a retro font that changes to a font from cursive font family when it doesn't load
+  - has a transition time of 0.2 seconds
+
+When the cursor hovers on the button, the button  
+  - gets a shadow effect
+  - increases in size by 10%
+
+When the mouse leaves the button, the button changes back to how it was before.  
+When the button is clicked, it navigates to the page that's made by Wildcard.js. Also, the button has Wildcard written on it.
 
 ### Wildcard.js
+
+Now, I will be explaining the Wildcard page.
+
+```javascript
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Wildcard = () => {
+  const navigate = useNavigate();
+  const [circles, setCircles] = useState([]);
+
+  useEffect(() => {
+    // Generate random positions for circles at the start
+    const newCircles = [
+      { id: 1, text: "Laser Cutter" }
+    ].map((circle) => ({
+      ...circle,
+      top: `${Math.random() * 70 + 10}%`, // Random position between 10% and 80% height
+      left: `${Math.random() * 70 + 10}%`, // Random position between 10% and 80% width
+    }));
+
+    setCircles(newCircles);
+  }, []);
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#F5F5F5", // Mild white background
+        fontFamily: "'Press Start 2P', cursive",
+        color: "silver",
+        overflow: "hidden",
+      }}
+    >
+      <h1
+        style={{
+          position: "absolute",
+          top: "5%",
+          textAlign: "center",
+          width: "100%",
+          fontSize: "2.5rem",
+        }}
+      >
+        Wildcard Selection
+      </h1>
+
+      {/* Render scattered circles */}
+      {circles.map((circle) => (
+        <div
+          key={circle.id}
+          style={{
+            position: "absolute",
+            top: circle.top,
+            left: circle.left,
+            width: "150px",
+            height: "150px",
+            borderRadius: "50%",
+            backgroundColor: "#AF8636",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1rem",
+            textAlign: "center",
+            cursor: "pointer",
+            border: "3px solid silver",
+            transition: "transform 0.3s, box-shadow 0.3s",
+          }}
+          onMouseOver={(e) => {
+            e.target.style.boxShadow = "0 0 15px silver";
+            e.target.style.transform = "scale(1.1)";
+          }}
+          onMouseOut={(e) => {
+            e.target.style.boxShadow = "none";
+            e.target.style.transform = "scale(1)";
+          }}
+          onClick={() => navigate(`/wildcard/${circle.text.toLowerCase().replace(" ", "-")}`)}
+        >
+          {circle.text}
+        </div>
+      ))}
+
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        style={{
+          position: "absolute",
+          bottom: "5%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          padding: "15px 30px",
+          fontSize: "1.2rem",
+          color: "silver",
+          backgroundColor: "transparent",
+          border: "2px solid silver",
+          cursor: "pointer",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P', cursive",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.boxShadow = "0 0 10px silver";
+          e.target.style.transform = "scale(1.1)";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.boxShadow = "none";
+          e.target.style.transform = "scale(1)";
+        }}
+      >
+        Back
+      </button>
+    </div>
+  );
+};
+
+export default Wildcard;
+```
+The text under Wildcard.js will be about the code above.
+
+``` javascript
+
+```
+
