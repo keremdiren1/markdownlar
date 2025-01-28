@@ -4,6 +4,8 @@ parametrix test
 
 ## Components
 
+In the components part, I will first start by explaining CoordinatePlane.js and ThreeDView.js. Then, I will explain every page starting from the first web page.
+
 ### CoordinatePlane.js
 
 ``` javascript
@@ -1667,8 +1669,251 @@ The button goes back to the start page when it is clicked.
 The button has Back written on it.  
 This is where the whole code under SplitSelection.js ends.
 
+### ParametrixView.js
+
+I will first start by talking about the parametrix view page instead of the level selection page.
+
 ### Select.js
 
-### Wildcard.js
+``` javascript
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-### ParametrixView.js
+const Select = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundColor: "black",
+        color: "white",
+        fontFamily: "'Press Start 2P', cursive",
+        textAlign: "center",
+      }}
+    >
+      <h1 style={{ fontSize: "2.5rem", marginBottom: "200px" }}>Select a Level</h1>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "20px",
+          width: "60%",
+          maxWidth: "600px",
+        }}
+      >
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((level) => (
+          <button
+            key={level}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              padding: "20px 0",
+              backgroundColor: "black",
+              color: "white",
+              border: "2px solid white",
+              fontSize: "2rem",
+              cursor: "pointer",
+              fontFamily: "'Press Start 2P', cursive",
+              transition: "transform 0.2s, box-shadow 0.2s",
+            }}
+            onClick={() => navigate(`/lvl${level}`)}
+            onMouseOver={(e) => {
+              e.target.style.boxShadow = "0 0 10px white";
+              e.target.style.transform = "scale(1.1)";
+            }}
+            onMouseOut={(e) => {
+              e.target.style.boxShadow = "none";
+              e.target.style.transform = "scale(1)";
+            }}
+          >
+            {level}
+          </button>
+        ))}
+      </div>
+
+      {/* Back Button */}
+      <button
+        onClick={() => navigate("/split")}
+        style={{
+          marginTop: "40px",
+          padding: "10px 20px",
+          fontSize: "1.2rem",
+          color: "white",
+          backgroundColor: "transparent",
+          border: "2px solid white",
+          cursor: "pointer",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P', cursive",
+          transition: "transform 0.2s, box-shadow 0.2s",
+          marginBottom: "200px",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.boxShadow = "0 0 10px white";
+          e.target.style.transform = "scale(1.1)";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.boxShadow = "none";
+          e.target.style.transform = "scale(1)";
+        }}
+      >
+        Back
+      </button>
+
+      {/* Wildcard Button */}
+      <button
+        style={{
+          marginTop: "0px", // Further below
+          padding: "5px 10px",
+          fontSize: "1.5rem",
+          color: "white",
+          backgroundColor: "#af8636",
+          border: "2px solid white",
+          cursor: "pointer",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P', cursive",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.boxShadow = "0 0 10px white";
+          e.target.style.transform = "scale(1.1)";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.boxShadow = "none";
+          e.target.style.transform = "scale(1)";
+        }}
+        onClick={() => navigate("/w")}
+      >
+        Wildcard
+      </button>
+    </div>
+  );
+};
+
+export default Select;
+```
+
+The text under Select.js will be about the code block above. This code represents the level selection page of Parametrix.
+
+``` javascript
+import React from "react";
+import { useNavigate } from "react-router-dom";
+```
+
+This code block imports the react library and useNavigate from "react-router-dom".
+
+``` javascript
+const Select = () => {
+```
+
+This code block creates a functional react component named Select.
+
+``` javascript
+  const navigate = useNavigate();
+```
+
+This code block creates a navigate constant that will be used to navigate to different pages.
+
+``` javascript
+  return (
+```
+
+This `return (` shows us that the remainder of the code will be the part returned from the functional react component.
+
+``` javascript
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundColor: "black",
+        color: "white",
+        fontFamily: "'Press Start 2P', cursive",
+        textAlign: "center",
+      }}
+    >
+```
+
+This part of the code creates a background that  
+  - takes up the whole screen
+  - is black
+  - has a white text color
+  - has a retro style font
+    - the `cursive` at the font setting part means that when the font `Press Start 2P` doesn't load, the font will be selected from the cursive font family.
+  - has a centered text
+
+``` javascript
+      <h1 style={{ fontSize: "2.5rem", marginBottom: "200px" }}>Select a Level</h1>
+```
+
+This code block shows us the title that will be written on the background. The text  
+  - is as big as 2.5 rem
+  - is above the bottom by 200px
+  - has a text that writes Select a Level
+
+``` javascript
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "20px",
+          width: "60%",
+          maxWidth: "600px",
+        }}
+      >
+```
+
+This part creates a grid. The grid  
+  - has 3 columns
+  - makes each element in it have 1 fr size
+  - has a 20px wide gap between each element in it
+  - has a width that takes up 60% of the screen
+  - has a width limit of 600px
+    - this limit is for screens that have a width larger than 1000px
+
+``` javascript
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((level) => (
+          <button
+            key={level}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              padding: "20px 0",
+              backgroundColor: "black",
+              color: "white",
+              border: "2px solid white",
+              fontSize: "2rem",
+              cursor: "pointer",
+              fontFamily: "'Press Start 2P', cursive",
+              transition: "transform 0.2s, box-shadow 0.2s",
+            }}
+            onClick={() => navigate(`/lvl${level}`)}
+            onMouseOver={(e) => {
+              e.target.style.boxShadow = "0 0 10px white";
+              e.target.style.transform = "scale(1.1)";
+            }}
+            onMouseOut={(e) => {
+              e.target.style.boxShadow = "none";
+              e.target.style.transform = "scale(1)";
+            }}
+          >
+            {level}
+          </button>
+        ))}
+      </div>
+```
+
+This code block creates buttons that will be placed on the grid previously made. The number of buttons are equal to the number of levels. Basically, 9 buttons with similar properties are made. The only difference in their code is that each instance of `{level}` in this code block is replaced by the number of the button. For example, the 5th button would have 5 at every instance of `{level}` instead of `{level}` itself. Now I will start to explain the lines.  
+The buttons  
+
+### Wildcard.js
