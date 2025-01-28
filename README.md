@@ -1479,7 +1479,8 @@ The remainder of the text under SplitSelection.js will be under the code block a
     >
 ```
 
-TEXT
+This code block sets a frame for its child elements.  
+Its child elements are the part in between the `<div>` and its corresponding `</div>`.
 
 ``` javascript
       {/* Left Side: Parametrix */}
@@ -1495,7 +1496,176 @@ TEXT
       >
 ```
 
-TEXT
+This `<div>` is in the `<div>` shown in the previous code block.  
+This code block creates a background that is centered, has a beige background color, and has a black border as thick as 2px on its right side. This part is on the left side of the screen.
+
+``` javascript
+        <button
+          style={{
+            fontSize: "2rem",
+            fontFamily: "'Press Start 2P'",
+            color: "#996633", // Brown text color
+            backgroundColor: "#f4e2cc", // Match the background color
+            border: "3px solid #996633",
+            padding: "20px 40px",
+            cursor: "pointer",
+            transition: "transform 0.3s, background-color 0.3s, color 0.3s",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "#996633";
+            e.target.style.color = "#f4e2cc";
+            e.target.style.transform = "scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "#f4e2cc";
+            e.target.style.color = "#996633";
+            e.target.style.transform = "scale(1)";
+          }}
+          onClick={() => navigate("/parametrix")}  // Navigate to Parametrix view
+        >
+          Parametrix
+        </button>
+      </div>
+```
+
+This code block creates a button. This button  
+  - has a 2 rem text size
+  - has a retro font
+  - has a brown text color
+  - has a beige background color
+  - has a brown border as thick as 3px
+  - changes the cursor into a pointer when it's hovering on it
+  - has a transition time of 0.3 seconds
+
+When a mouse hovers on it, this button  
+  - changes its background color to brown
+  - changes its text color to beige
+  - increases its size by 10%
+
+When a mouse leaves this button, the button changes how it was before. 
+This button also navigates to a page that is made by ParametrixView.js.  
+This button has Parametrix written on it. Also, as we can see, the `<button>` and the previous `<div>` is closed.
+
+``` javascript
+      {/* Right Side: Tutorials */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "black",
+          position: "relative", // Enables absolute positioning for the Back button
+        }}
+      >
+```
+
+This code block creates a `<div>` that makes a background that is centered and that has a black background color. This part is on the right side of the screen.
+
+``` javascript
+        <button
+          style={{
+            fontSize: "2rem",
+            fontFamily: "'Press Start 2P'",
+            color: "white",
+            backgroundColor: "black",
+            border: "3px solid white",
+            padding: "20px 40px",
+            cursor: "pointer",
+            transition: "transform 0.3s, background-color 0.3s, color 0.3s",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "white";
+            e.target.style.color = "black";
+            e.target.style.transform = "scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "black";
+            e.target.style.color = "white";
+            e.target.style.transform = "scale(1)";
+          }}
+          onClick={() => navigate("/levelselection")}
+        >
+          Tutorials
+        </button>
+```
+
+This code block creates a button. This button  
+  - has text as big as 2 rem size
+  - has a retro font
+  - has a white text
+  - has a black background
+  - has a border as thick as 3px
+  - changes the cursor to a pointer when it's hovering on it
+  - has a transition time of 0.3 seconds
+
+When a cursor starts hovering on it, this button  
+  - changes its background color to white
+  - changes its text color to black
+  - increases in size by 10%
+
+When a cursor leaves this button, this button turns back to how it was before.  
+When clicked, this button navigates to a page that is made by Select.js.  
+This button has Tutorials written on it. Also, this `<button>` is closed in this code block.
+
+``` javascript
+        {/* Back Button */}
+        <button
+          style={{
+            position: "absolute", // Absolute positioning
+            bottom: "20px", // Positioned at the bottom
+            right: "20px", // Positioned at the right
+            fontSize: "1rem",
+            fontFamily: "'Press Start 2P'",
+            color: "black",
+            backgroundColor: "white",
+            border: "3px solid white",
+            padding: "10px 20px",
+            cursor: "pointer",
+            transition: "transform 0.3s, background-color 0.3s, color 0.3s",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "cyan";
+            e.target.style.color = "black";
+            e.target.style.transform = "scale(1.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "white";
+            e.target.style.color = "black";
+            e.target.style.transform = "scale(1)";
+          }}
+          onClick={() => navigate("/")} // Navigate back to the start page
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  );
+};
+```
+
+This code block creates a button. The button has the following properties.  
+  - This button has absolute positioning. This makes the button's position relative to an ancestor with `positin: relative`, which is the previous `<div>`. This means that the position of the button will be determined depending on the position of the previous `<div>`.
+  - This button is 20px above its normally designated position.
+  - This button is 20px away from the right side of its designated position.
+  - These last three lines mean that the button will be positioned on the bottom right corner, except the button will be 20px towards left and 20px towards up.
+  - This button has a text size of 1 rem.
+  - This button has a retro font.
+  - This button has black text color.
+  - This button has white background.
+  - This button has a white border as thick as 3px.
+  - This button changes the cursor to a pointer when it's hovering on it.
+  - This button has a transition time of 0.3 seconds.
+
+This button changes when a cursor is hovering on it. The button  
+  - changes its background color to cyan
+  - changes its text color to black
+  - increases in size by 10%
+
+The button changes back to how it was after the mouse leaves it.  
+The button goes back to the start page when it is clicked.  
+The button has Back written on it.  
+This is where the whole code under SplitSelection.js ends.
 
 ### Select.js
 
