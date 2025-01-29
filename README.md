@@ -2339,4 +2339,9 @@ The code block above creates a back button. The button returns to the previous p
   - has a retro font
   - has a transition time of 0.2 seconds
 
-When the button is
+When the cursor hovers over the button, the button  
+  - gets a shadow effect
+  - increases in size by 10%
+
+When the cursor stops hovering, the button turns back to normal.  
+The text Back is written on the button.
