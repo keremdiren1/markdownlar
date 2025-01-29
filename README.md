@@ -2150,6 +2150,88 @@ export default Wildcard;
 The text under Wildcard.js will be about the code above.
 
 ``` javascript
-
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 ```
 
+This code block imports useEffect and useState from the react library and useNavigate from "react-router-dom".
+
+``` javascript
+const Wildcard = () => {
+```
+
+This code block creates a functional react element named Wildcard.
+
+``` javascript
+  const navigate = useNavigate();
+  const [circles, setCircles] = useState([]);
+```
+
+This code block creates a constant named navigate that is used to navigate to different pages. This code block also creates an array named circles and an update function named setCircles.
+
+``` javascript
+  useEffect(() => {
+    // Generate random positions for circles at the start
+    const newCircles = [
+      { id: 1, text: "Laser Cutter" }
+    ].map((circle) => ({
+      ...circle,
+      top: `${Math.random() * 70 + 10}%`, // Random position between 10% and 80% height
+      left: `${Math.random() * 70 + 10}%`, // Random position between 10% and 80% width
+    }));
+
+    setCircles(newCircles);
+  }, []);
+```
+
+This code block creates information for a circle that will be set in a random position. To be more precise, it creates the information of where that random position will be and what will be written on the circle. It also sets this information to the circles array.
+
+``` javascript
+  return (
+```
+
+This code block shows us that the remainder of this code will be the part being returned.
+
+``` javascript
+    <div
+      style={{
+        position: "relative",
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#F5F5F5", // Mild white background
+        fontFamily: "'Press Start 2P', cursive",
+        color: "silver",
+        overflow: "hidden",
+      }}
+    >
+```
+
+This code block creates a background. This background  
+  - covers the whole screen
+  - has a mild white background color
+  - has a retro font
+  - has a silver text color
+  - makes anything that goes over its borders invisible
+
+``` javascript
+      <h1
+        style={{
+          position: "absolute",
+          top: "5%",
+          textAlign: "center",
+          width: "100%",
+          fontSize: "2.5rem",
+        }}
+      >
+```
+
+The code block above creates a title. This title  
+  - is 5% under the top of the screen
+  - is centered
+  - has a text size of 2.5 rem
+
+This title also has the text properties defined in the background part (silver text, retro font).
+
+``` javascript
+
+```
