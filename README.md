@@ -2230,8 +2230,113 @@ The code block above creates a title. This title
   - is centered
   - has a text size of 2.5 rem
 
-This title also has the text properties defined in the background part (silver text, retro font).
+This title also has the text properties defined in the background part (silver text, retro font). The text reads Wildcard Selection.
 
 ``` javascript
-
+      {/* Render scattered circles */}
+      {circles.map((circle) => (
+        <div
+          key={circle.id}
+          style={{
+            position: "absolute",
+            top: circle.top,
+            left: circle.left,
+            width: "150px",
+            height: "150px",
+            borderRadius: "50%",
+            backgroundColor: "#AF8636",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1rem",
+            textAlign: "center",
+            cursor: "pointer",
+            border: "3px solid silver",
+            transition: "transform 0.3s, box-shadow 0.3s",
+          }}
+          onMouseOver={(e) => {
+            e.target.style.boxShadow = "0 0 15px silver";
+            e.target.style.transform = "scale(1.1)";
+          }}
+          onMouseOut={(e) => {
+            e.target.style.boxShadow = "none";
+            e.target.style.transform = "scale(1)";
+          }}
+          onClick={() => navigate(`/wildcard/${circle.text.toLowerCase().replace(" ", "-")}`)}
+        >
+          {circle.text}
+        </div>
+      ))}
 ```
+
+This code block puts the previously created random circle into the screen. The circle  
+  - is at the random position previously decided
+  - has a width of 150px
+  - has a height of 150px
+  - has a border radius that is 50%
+  - has a brownish background color
+  - has a text size of 1 rem
+  - has a centered text
+  - changes the cursor to a pointer when it hovers on it
+  - has a 3px silver border
+  - has a transition speed of 0.3 seconds
+
+When the mouse hovers over the circle, the circle  
+  - gets a shadow effect
+  - increases in size by 10%
+
+When the mouse stops hovering on the circle, the circle returns to its previous form  
+When clicked, the circle navigates to a different page. The page URL ends with `/wildcard/laser-cutter` for this circle. The `laser-cutter` part is actually from the text of the circle, "Laser Cutter", except it was turned to lowercase and the " " in the middle was replaced with "-".  
+Also, the text "Laser Cutter" is written on the circle.
+
+``` javascript
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        style={{
+          position: "absolute",
+          bottom: "5%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          padding: "15px 30px",
+          fontSize: "1.2rem",
+          color: "silver",
+          backgroundColor: "transparent",
+          border: "2px solid silver",
+          cursor: "pointer",
+          textTransform: "uppercase",
+          fontFamily: "'Press Start 2P', cursive",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseOver={(e) => {
+          e.target.style.boxShadow = "0 0 10px silver";
+          e.target.style.transform = "scale(1.1)";
+        }}
+        onMouseOut={(e) => {
+          e.target.style.boxShadow = "none";
+          e.target.style.transform = "scale(1)";
+        }}
+      >
+        Back
+      </button>
+    </div>
+  );
+};
+```
+
+The code block above creates a back button. The button returns to the previous page when clicked. Also, the button  
+  - is 5% above the bottom of the screen
+  - is centered
+    - the line `left: "50%",` moves the left side of the button to the middle
+    - the line `transform: "translateX(-50%)",` moves the button to the left by half of its own width
+    - this means that the button is centered
+  - has a text size of 1.2 rem
+  - has a text color of silver
+  - has a transparent background
+  - has a silver border as thick as 2px
+  - turns the cursor to a pointer when it hovers on it
+  - has an uppercase text
+  - has a retro font
+  - has a transition time of 0.2 seconds
+
+When the button is
