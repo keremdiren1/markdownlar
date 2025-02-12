@@ -1,3 +1,5 @@
+# environment.mjs
+
 ``` javascript
 // environment.mjs
 export class Environment {
@@ -57,6 +59,8 @@ export class Environment {
   }
 ```
 
+# index.html
+
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -76,19 +80,19 @@ export class Environment {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
+    } <!-- This part is creates a use for * which resets the padding and the margin. -->
 
     html, body {
       height: 100vh;
       overflow: hidden;
-    }
+    } <!-- This part makes the <html> and <body> types have heights the goes from the bottom to the top of the screen. -->
 
     body {
       display: flex;
       flex-direction: column;
       font-family: monospace;
       background: #fff;
-    }
+    } <!-- This part makes the <body> type have a font of monospace and a white background. It also makes the display type of <body> to flex. -->
 
     .header {
       height: 48px;
@@ -97,36 +101,36 @@ export class Environment {
       padding: 0 16px;
       border-bottom: 1px solid #ccc;
       background: #f8f8f8;
-    }
+    } <!-- This part makes the class="header" to have a 48px height, have a 0 to 16px padding, have a light gray border at the bottom, and have a light gray background that is really white. -->
 
     .logo {
       font-weight: bold;
       font-size: 18px;
-    }
+    } <!-- This part makes the class="logo" to have a bold text which has 18px size. -->
 
     .main-content {
       flex: 1;
       display: flex;
       min-height: 0;
-    }
+    } <!-- This part makes the class="main-content" to have a display type of flex and a minimum height of 0. -->
 
     .editor-panel {
       width: 50%;
       display: flex;
       flex-direction: column;
       border-right: 1px solid #ccc;
-    }
+    } <!-- This part makes the class="editor-panel" to have a width of 50% (50% of its parent element), a display type of flex, a flex direction of column, and a light gray border to the right. -->
 
     .CodeMirror {
       height: 100%;
       font-size: 14px;
       background: #fdf6e3;
-    }
+    } <!-- This part makes the class="CodeMirror" to have a 100% height (100% of its parent element), a 14px font, and a very light, warm beige color background. -->
 
     .visualization-panel {
       width: 50%;
       position: relative;
-    }
+    } <!-- This part makes the class="visualization-panel" have a 50% width and a position type of relative (which is set relative to an element with position: absolute). -->
 
     #canvas {
       position: absolute;
@@ -134,7 +138,7 @@ export class Environment {
       left: 0;
       width: 100%;
       height: 100%;
-    }
+    } <!-- This part makes the elements with the canvas id have a position type of absolute, a position at the top left, and a width and height of 100%. -->
 
     .footer {
       height: 48px;
@@ -143,7 +147,7 @@ export class Environment {
       padding: 0 16px;
       border-top: 1px solid #ccc;
       background: #f8f8f8;
-    }
+    } <!-- This part makes the class="footer" to have a height of 48px, have a display type of flex, have its items aligned in the middle, have a padding of 0 to 16px, have a light gray border on top, and have a very light gray background. -->
 
     .button {
       padding: 8px 16px;
@@ -152,7 +156,7 @@ export class Environment {
       border: none;
       background: #e0e0e0;
       cursor: pointer;
-    }
+    } <!--  -->
 
     .button:hover {
       background: #d0d0d0;
