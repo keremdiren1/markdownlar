@@ -557,12 +557,12 @@ class PolygonWithHoles extends Shape {
 }
 
 // Utility functions for shape operations
-const ShapeUtils = {
+const ShapeUtils = { // This part creates a constant named ShapeUtils which provides us with utility functions for Shape operations.
     // Boolean operations
     union(shape1, shape2) {
         // Implementation would require complex polygon clipping library
         throw new Error("Boolean operations require additional geometry library");
-    },
+    }, // This part creates a function that throws an error saying you need to install additional geometry library.
 
     // Distance between shapes
     distance(shape1, shape2) {
@@ -573,7 +573,7 @@ const ShapeUtils = {
             Math.pow(bb1.x - bb2.x, 2) + 
             Math.pow(bb1.y - bb2.y, 2)
         );
-    },
+    }, // This part creates a function that returns the distance between two Shapes.
 
     // Check if point is inside shape
     pointInShape(point, shape) {
@@ -591,7 +591,7 @@ const ShapeUtils = {
         }
         
         return inside;
-    },
+    }, // This part creates a function that checks whether a given point is inside a given shape. If it is, it returns true; it returns false otherwise.
 
     // Convert shape to SVG path
     toSVGPath(shape) {
@@ -605,7 +605,7 @@ const ShapeUtils = {
         path += ' Z';
         
         return path;
-    }
+    } // This part creates a function that converts Shapes to SVG. This function, however, only works for Shapes that have straight lines (polygons); it does not work with curves.
 };
 
 export {
