@@ -1,5 +1,3 @@
-# Shapes.mjs (unfinished)
-
 ``` javascript
 // Base Shape class with common functionality
 class Shape {
