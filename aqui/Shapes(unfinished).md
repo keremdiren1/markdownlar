@@ -221,7 +221,7 @@ class RoundedRectangle extends Shape {
                     y: centerY + Math.sin(angle) * r
                 });
             }
-        };
+        }; // This part creates a helper function that helps with determining the points of the RoundedRectangle.
 
         // Top right corner
         addCorner(w - r, -h + r, 0);
@@ -233,7 +233,7 @@ class RoundedRectangle extends Shape {
         addCorner(-w + r, -h + r, -Math.PI/2);
 
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of RoundedRectangle.
 }
 
 // 9. Path
@@ -247,16 +247,16 @@ class Path extends Shape {
     addPoint(x, y) {
         this.points.push({ x, y });
         return this;
-    }
+    } // This part creates a method that adds a point to the points array. This method also returns Path after its execution.
 
     close() {
         this.closed = true;
         return this;
-    }
+    } // This part creates a method that sets the boolean value closed, which represents whether Path is closed or not, to true. This method also returns Path after its execution.
 
     getPoints() {
         return this.points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Path.
 }
 
 // 10. Arrow
@@ -278,7 +278,7 @@ class Arrow extends Shape {
             { x: this.length - this.headLength, y: 0 }
         ];
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Arrow.
 }
 
 // 11. Text (Bounding box for text)
@@ -300,7 +300,7 @@ class Text extends Shape {
             width: this.width,
             height: this.height
         };
-    }
+    } This part creates a method that returns the position and the dimensions of the bounding box of Text.
 }
 
 // 12. Bezier Curve
@@ -320,7 +320,7 @@ class BezierCurve extends Shape {
             points.push(point);
         }
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of BezierCurve.
 
     calculateBezierPoint(t) {
         const x = Math.pow(1-t, 3) * this.startPoint.x +
@@ -332,7 +332,7 @@ class BezierCurve extends Shape {
                  3 * (1-t) * Math.pow(t, 2) * this.controlPoint2.y +
                  Math.pow(t, 3) * this.endPoint.y;
         return { x, y };
-    }
+    } // This is a helper function that calculates a point of a bezier curve depending on the variable t, which is set by the current iteration number of the for loop in the getPoints function.
 }
 
 // 13. Donut (Annulus)
@@ -362,7 +362,7 @@ class Donut extends Shape {
             });
         }
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Donut.
 }
 
 // 14. Spiral
@@ -387,7 +387,7 @@ class Spiral extends Shape {
             });
         }
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Spiral.
 }
 
 // 15. Cross
@@ -410,7 +410,7 @@ class Cross extends Shape {
             { x: -w, y: -t }, { x: -t, y: -t }
         ];
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Cross.
 }
 
 // 16. Gear
@@ -447,7 +447,7 @@ class Gear extends Shape {
             }
         }
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Gear.
 }
 
 // 17. Wave
@@ -467,7 +467,7 @@ class Wave extends Shape {
             points.push({ x, y });
         }
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Wave.
 }
 
 // 18. Slot
@@ -502,7 +502,7 @@ class Slot extends Shape {
         }
 
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Slot.
 }
 
 // 19. Chamfer Rectangle
@@ -531,7 +531,7 @@ class ChamferRectangle extends Shape {
         ];
         
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of ChamferRectangle.
 }
 
 // 20. Polygon with Holes
@@ -553,7 +553,7 @@ class PolygonWithHoles extends Shape {
         });
         
         return allPoints.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of PolygonWithHoles.
 }
 
 // Utility functions for shape operations
