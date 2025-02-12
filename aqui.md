@@ -1,3 +1,8 @@
+# Shapes.mjs
+
+``` javascript
+```
+
 # environment.mjs
 
 ``` javascript
@@ -59,7 +64,7 @@ export class Environment {
   }
 ```
 
-# index.html
+# index.html (unfinished)
 
 ``` html
 <!DOCTYPE html>
@@ -147,7 +152,7 @@ export class Environment {
       padding: 0 16px;
       border-top: 1px solid #ccc;
       background: #f8f8f8;
-    } <!-- This part makes the class="footer" to have a height of 48px, have a display type of flex, have its items aligned in the middle, have a padding of 0 to 16px, have a light gray border on top, and have a very light gray background. -->
+    } <!-- This part makes the class="footer" have a height of 48px, have a display type of flex, have its items aligned in the middle, have a padding of 0 to 16px, have a light gray border on top, and have a very light gray background. -->
 
     .button {
       padding: 8px 16px;
@@ -156,11 +161,11 @@ export class Environment {
       border: none;
       background: #e0e0e0;
       cursor: pointer;
-    } <!--  -->
+    } <!-- This part makes the class="button" have a padding of 8px to 16px, have a 10px margin from the element to its right, have a font of monospace, have a light gray background, and change the cursor to a pointer when it hovers on it. -->
 
     .button:hover {
       background: #d0d0d0;
-    }
+    } <!-- This part makes it so that the background turns into a medium light gray color when the mouse hovers on it. -->
 
     .ast-panel {
       position: absolute;
@@ -175,17 +180,17 @@ export class Environment {
       font-family: monospace;
       font-size: 12px;
       overflow: auto;
-    }
+    } <!-- This part makes the class="ast-panel" have a position type of absolute, have a position 48px above the bottom, have it stretch from the leftmost part to the rightmost part of its parent element, have a height of 200px, have a white background, have a light gray border on its top side, have a padding of 16px, have a monospace text font, and have a 12px text size. This element is invisible by default. -->
 
     .ast-panel.visible {
       display: block;
-    }
+    } <!-- This part is used to make the class="ast-panel" visible. -->
   </style>
 </head>
 <body>
   <div class="header">
     <div class="logo">Domine, non nisi Te</div>
-  </div>
+  </div> <!-- This part creates a header that has "Domine, non tisi Te" written in it. -->
 
   <div class="main-content">
     <div class="editor-panel">
@@ -194,16 +199,16 @@ export class Environment {
     <div class="visualization-panel">
       <canvas id="canvas"></canvas>
     </div>
-  </div>
+  </div> <!-- This part creates a panel we can write in. This has "// Aqui" written before we start to write. This part also sets an id to this panel. -->
 
   <div class="ast-panel" id="ast-panel">
     <pre id="ast-output"></pre>
-  </div>
+  </div> <!--  -->
 
   <div class="footer">
     <button class="button" id="run-button">Run (Shift + Enter)</button>
     <button class="button" id="view-ast">View AST</button>
-  </div>
+  </div> <!-- This part creates a footer that has 2 buttons in it. The first button has an id of "run-button" and has "Run (Shift + Enter)" written in it. The second button has an id of "view-ast" and has "View AST" written in it. -->
 
   <script>
     // Define Aqui syntax for CodeMirror
@@ -305,4 +310,297 @@ export class Environment {
   </script>
 </body>
 </html>
+```
+
+# interpreter.mjs (unfinished)
+
+``` javascript
+// interpreter.mjs
+import { Environment } from './environment.mjs'; // This line imports the Environment class from environment.mjs
+
+export class Interpreter {
+  constructor() {
+    this.env = new Environment();
+  } // This part creates a constructor for the Interpreter class.
+
+  interpret(ast) {
+    let result = null;
+    for (const node of ast) {
+      result = this.evaluateNode(node); // 
+    }
+    return {
+      parameters: this.env.parameters,
+      shapes: this.env.shapes,
+      layers: this.env.layers,
+      result
+    }; // This part returns the parameters, shapes, and layers in env. This also returns the variable named result.
+  }
+
+ // Add to Interpreter class
+evaluateNode(node) {
+  // If we're in a loop and this is a shape node, add the loop counter to the name
+  if (node.type === 'shape' && this.currentLoopCounter !== undefined) {
+    node = {
+      ...node,
+      name: `${node.name}_${this.currentLoopCounter}`
+    };
+  }
+
+  switch (node.type) {
+    case 'param':
+      return this.evaluateParam(node);
+    
+    case 'shape':
+      return this.evaluateShape(node);
+    
+    case 'layer':
+      return this.evaluateLayer(node);
+    
+    case 'transform':
+      return this.evaluateTransform(node);
+    
+    case 'if_statement':
+      return this.evaluateIfStatement(node);
+    
+    case 'for_loop':
+      return this.evaluateForLoop(node);
+    
+    default:
+      throw new Error(`Unknown node type: ${node.type}`);
+  }
+}
+
+evaluateForLoop(node) {
+  const start = this.evaluateExpression(node.start);
+  const end = this.evaluateExpression(node.end);
+  const step = this.evaluateExpression(node.step);
+  
+  // Save current loop state if we're in nested loops
+  const outerLoopCounter = this.currentLoopCounter;
+  
+  // Execute the loop
+  for (let i = start; i <= end; i += step) {
+    // Set the iterator value in the environment
+    this.env.setParameter(node.iterator, i);
+    
+    // Update the current loop counter
+    this.currentLoopCounter = i;
+    
+    // Execute each statement in the loop body
+    for (const statement of node.body) {
+      this.evaluateNode(statement);
+    }
+  }
+  
+  // Restore previous loop state
+  this.currentLoopCounter = outerLoopCounter;
+  
+  // Clean up the iterator
+  this.env.parameters.delete(node.iterator);
+}
+  evaluateIfStatement(node) {
+    const condition = this.evaluateExpression(node.condition);
+    if (this.isTruthy(condition)) {
+      for (const statement of node.thenBranch) {
+        this.evaluateNode(statement);
+      }
+    } else if (node.elseBranch && node.elseBranch.length > 0) {
+      for (const statement of node.elseBranch) {
+        this.evaluateNode(statement);
+      }
+    }
+  }
+
+  isTruthy(value) {
+    if (typeof value === 'boolean') return value;
+    if (typeof value === 'number') return value !== 0;
+    if (typeof value === 'string') return value.length > 0;
+    if (Array.isArray(value)) return value.length > 0;
+    if (value === null || value === undefined) return false;
+    return true;
+  }
+
+  evaluateParam(node) {
+    const value = this.evaluateExpression(node.value);
+    this.env.setParameter(node.name, value);
+    return value;
+  }
+
+  evaluateShape(node) {
+    const params = {};
+    for (const [key, expr] of Object.entries(node.params)) {
+      params[key] = this.evaluateExpression(expr);
+    }
+    return this.env.createShape(node.shapeType, node.name, params);
+  }
+
+  shapeToPath(shape) {
+    // Convert any shape to a path using ShapePoints
+    const points = ShapePoints.getPoints(shape);
+    return {
+      type: 'path',
+      params: {
+        points,
+        closed: true
+      },
+      transform: {
+        position: [0, 0],
+        rotation: 0,
+        scale: [1, 1]
+      }
+    };
+  }
+
+  
+
+  evaluateLayer(node) {
+    const layer = {
+      name: node.name,
+      shapes: new Set(),  // Use Set to store shape names
+      transform: {
+          position: [0, 0],
+          rotation: 0,
+          scale: [1, 1]
+      }
+  };
+    for (const cmd of node.commands) {
+      switch (cmd.type) {
+        case 'add': {
+            // Just store the shape name in the layer
+            layer.shapes.add(cmd.shape);
+            break;
+        }
+        case 'rotate': {
+            const angle = this.evaluateExpression(cmd.angle);
+            // Directly modify shapes in this layer
+            for (const shapeName of layer.shapes) {
+                const shape = this.env.getShape(shapeName);
+                if (shape) {
+                    shape.transform.rotation = (shape.transform.rotation || 0) + angle;
+                }
+            }
+            break;
+        }
+      }
+    }
+    return layer;
+  }
+  evaluateTransform(node) {
+    const target = this.env.shapes.get(node.target) || this.env.layers.get(node.target);
+    if (!target) {
+      throw new Error(`Transform target not found: ${node.target}`);
+    }
+    for (const op of node.operations) {
+      switch (op.type) {
+        case 'scale': {
+          const scaleVal = this.evaluateExpression(op.value);
+          target.transform.scale = [scaleVal, scaleVal];
+          break;
+        }
+        case 'rotate': {
+          const angle = this.evaluateExpression(op.angle);
+          target.transform.rotation += angle;
+          break;
+        }
+        case 'translate': {
+          const [x, y] = this.evaluateExpression(op.value);
+          target.transform.position = [x, y];
+          break;
+        }
+        default:
+          throw new Error(`Unknown transform operation: ${op.type}`);
+      }
+    }
+    return target;
+  }
+
+  evaluateExpression(expr) {
+    switch (expr.type) {
+      case 'number':   return expr.value;
+      case 'string':   return expr.value;
+      case 'boolean':  return expr.value;
+      case 'identifier': {
+        if (expr.name.startsWith('param.')) {
+          const paramName = expr.name.split('.')[1];
+          return this.env.getParameter(paramName);
+        }
+        return this.env.getParameter(expr.name);
+      }
+      case 'comparison': return this.evaluateComparison(expr);
+      case 'logical_op': return this.evaluateLogicalOp(expr);
+      case 'binary_op': {
+        const left = this.evaluateExpression(expr.left);
+        const right = this.evaluateExpression(expr.right);
+        return this.evaluateBinaryOp(expr.operator, left, right);
+      }
+      case 'unary_op': {
+        const operand = this.evaluateExpression(expr.operand);
+        if (expr.operator === 'not') return !this.isTruthy(operand);
+        return expr.operator === 'minus' ? -operand : +operand;
+      }
+      case 'array':
+        return expr.elements.map(e => this.evaluateExpression(e));
+      default:
+        throw new Error(`Unknown expression type: ${expr.type}`);
+    }
+  }
+
+  evaluateComparison(expr) {
+    const left = this.evaluateExpression(expr.left);
+    const right = this.evaluateExpression(expr.right);
+    
+    switch (expr.operator) {
+      case 'equals':         return left === right;
+      case 'not_equals':     return left !== right;
+      case 'less':          return left < right;
+      case 'less_equals':    return left <= right;
+      case 'greater':       return left > right;
+      case 'greater_equals': return left >= right;
+      default:
+        throw new Error(`Unknown comparison operator: ${expr.operator}`);
+    }
+  }
+
+  evaluateLogicalOp(expr) {
+    const left = this.evaluateExpression(expr.left);
+    
+    // Short-circuit evaluation
+    if (expr.operator === 'and') {
+      return this.isTruthy(left) ? this.isTruthy(this.evaluateExpression(expr.right)) : false;
+    }
+    if (expr.operator === 'or') {
+      return this.isTruthy(left) ? true : this.isTruthy(this.evaluateExpression(expr.right));
+    }
+    
+    throw new Error(`Unknown logical operator: ${expr.operator}`);
+  }
+
+  evaluateBinaryOp(operator, left, right) {
+    switch (operator) {
+      case 'plus':     return left + right;
+      case 'minus':    return left - right;
+      case 'multiply': return left * right;
+      case 'divide':
+        if (right === 0) throw new Error('Division by zero');
+        return left / right;
+      default:
+        throw new Error(`Unknown binary operator: ${operator}`);
+    }
+  }
+}
+```
+
+# lexer.mjs (unfinished)
+
+``` javascript
+```
+
+# parser.mjs (unfinished)
+
+``` javascript
+```
+
+# renderer.mjs
+
+``` javascript
 ```
