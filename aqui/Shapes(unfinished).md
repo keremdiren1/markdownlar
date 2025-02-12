@@ -174,13 +174,13 @@ class Star extends Shape { // This part creates a subclass of of the Shape class
 }
 
 // 7. Arc
-class Arc extends Shape {
+class Arc extends Shape { // This part creates a subclass of of the Shape class.
     constructor(radius, startAngle, endAngle) {
         super();
         this.radius = radius;
         this.startAngle = startAngle;
         this.endAngle = endAngle;
-    }
+    } // This part creates a constructor for the Arc class.
 
     getPoints(segments = 32) {
         const points = [];
@@ -194,7 +194,7 @@ class Arc extends Shape {
             });
         }
         return points.map(p => this.transformPoint(p));
-    }
+    } // This part creates a method that returns all of the points of Arc.
 }
 
 // 8. RoundedRectangle
@@ -204,7 +204,7 @@ class RoundedRectangle extends Shape {
         this.width = width;
         this.height = height;
         this.radius = Math.min(radius, width/2, height/2);
-    }
+    } // This part creates a constructor for the RoundedRectangle class.
 
     getPoints(segmentsPerCorner = 8) {
         const points = [];
@@ -242,7 +242,7 @@ class Path extends Shape {
         super();
         this.points = [];
         this.closed = false;
-    }
+    } // This part creates a constructor for the Path class.
 
     addPoint(x, y) {
         this.points.push({ x, y });
@@ -266,7 +266,7 @@ class Arrow extends Shape {
         this.length = length;
         this.headWidth = headWidth;
         this.headLength = headLength;
-    }
+    } // This part creates a constructor for the Arrow class.
 
     getPoints() {
         const points = [
@@ -291,7 +291,7 @@ class Text extends Shape {
         // Rough estimation of text dimensions
         this.width = this.fontSize * 0.6 * this.text.length;
         this.height = this.fontSize;
-    }
+    } // This part creates a constructor for the Text class.
 
     getBoundingBox() {
         return {
@@ -311,7 +311,7 @@ class BezierCurve extends Shape {
         this.controlPoint1 = controlPoint1;
         this.controlPoint2 = controlPoint2;
         this.endPoint = endPoint;
-    }
+    } // This part creates a constructor for the BezierCurve class.
 
     getPoints(segments = 32) {
         const points = [];
@@ -341,7 +341,7 @@ class Donut extends Shape {
         super();
         this.outerRadius = outerRadius;
         this.innerRadius = innerRadius;
-    }
+    } // This part creates a constructor for the Donut class.
 
     getPoints(segments = 32) {
         const points = [];
@@ -372,7 +372,7 @@ class Spiral extends Shape {
         this.startRadius = startRadius;
         this.endRadius = endRadius;
         this.turns = turns;
-    }
+    } // This part creates a constructor for the Spiral class.
 
     getPoints(segments = 100) {
         const points = [];
@@ -396,7 +396,7 @@ class Cross extends Shape {
         super();
         this.width = width;
         this.thickness = thickness;
-    }
+    } // This part creates a constructor for the Cross class.
 
     getPoints() {
         const w = this.width/2;
@@ -422,7 +422,7 @@ class Gear extends Shape {
         this.pressure_angle = pressure_angle * Math.PI / 180;
         this.addendum = this.pitch_diameter / this.teeth;
         this.dedendum = 1.25 * this.addendum;
-    }
+    } // This part creates a constructor for the Gear class.
 
     getPoints(points_per_tooth = 4) {
         const points = [];
@@ -457,7 +457,7 @@ class Wave extends Shape {
         this.width = width;
         this.amplitude = amplitude;
         this.frequency = frequency;
-    }
+    } // This part creates a constructor for the Wave class.
 
     getPoints(segments = 50) {
         const points = [];
@@ -477,7 +477,7 @@ class Slot extends Shape {
         this.length = length;
         this.width = width;
         this.radius = width/2;
-    }
+    } // This part creates a constructor for the Slot class.
 
     getPoints(segments = 32) {
         const points = [];
@@ -512,7 +512,7 @@ class ChamferRectangle extends Shape {
         this.width = width;
         this.height = height;
         this.chamfer = Math.min(chamfer, width/2, height/2);
-    }
+    } // This part creates a constructor for the ChamferRectangle class.
 
     getPoints() {
         const w = this.width/2;
@@ -540,7 +540,7 @@ class PolygonWithHoles extends Shape {
         super();
         this.outerPoints = outerPoints;
         this.holes = holes; // Array of arrays of points
-    }
+    } // This part creates a constructor for the PolygonWithHoles class.
 
     getPoints() {
         let allPoints = [...this.outerPoints];
