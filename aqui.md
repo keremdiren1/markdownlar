@@ -1,4 +1,4 @@
-```
+``` module javascript
 // environment.mjs
 export class Environment {
     constructor() {
