@@ -326,14 +326,14 @@ export class Interpreter {
   interpret(ast) {
     let result = null;
     for (const node of ast) {
-      result = this.evaluateNode(node); // 
+      result = this.evaluateNode(node); // This part calls the evaluateNode method and replaces the value of result with the returned value. The evaluateNode method will be explained below.
     }
     return {
       parameters: this.env.parameters,
       shapes: this.env.shapes,
       layers: this.env.layers,
       result
-    }; // This part returns the parameters, shapes, and layers in env. This also returns the variable named result.
+    }; // This part returns the parameters, shapes, and layers in env. This part also returns the variable named result.
   }
 
  // Add to Interpreter class
@@ -346,8 +346,8 @@ evaluateNode(node) {
     };
   }
 
-  switch (node.type) {
-    case 'param':
+  switch (node.type) { // When this line activates, a specific case starts depending on the type of the node.
+    case 'param': 
       return this.evaluateParam(node);
     
     case 'shape':
@@ -367,7 +367,7 @@ evaluateNode(node) {
     
     default:
       throw new Error(`Unknown node type: ${node.type}`);
-  }
+  } // Each type has its own evaluate method called. If it is not a type defined here, the program throws an error.
 }
 
 evaluateForLoop(node) {
