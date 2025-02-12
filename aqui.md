@@ -57,8 +57,6 @@ export class Environment {
   }
 ```
 
-# ------------
-
 ``` html
 <!DOCTYPE html>
 <html lang="en">
