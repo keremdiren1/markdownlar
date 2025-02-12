@@ -57,21 +57,23 @@ export class Environment {
   }
 ```
 
+# ------------
+
 ``` html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>AQUI Visual Test Environment</title>
+  <title>AQUI Visual Test Environment</title> <!-- This part puts a title on the screen. -->
   
   <!-- CodeMirror Dependencies -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/mode/simple.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/edit/closebrackets.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/comment/comment.min.js"></script>
-<!-- aa -->
-  <style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.12/addon/comment/comment.min.js"></script> <!-- This part imports needed stuff for the code. -->
+
+  <style> <!-- this part creates a style to use in the code. -->
     * {
       margin: 0;
       padding: 0;
