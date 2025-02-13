@@ -108,7 +108,7 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
     const value = this.evaluateExpression(node.value);
     this.env.setParameter(node.name, value);
     return value;
-  } 
+  } // This part creates a method that changes the value corresponding to the node's name to the value value returned by evaluateExpression.
 
   evaluateShape(node) {
     const params = {};
@@ -116,7 +116,7 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
       params[key] = this.evaluateExpression(expr);
     }
     return this.env.createShape(node.shapeType, node.name, params);
-  }
+  } // This part creates a method that 
 
   shapeToPath(shape) {
     // Convert any shape to a path using ShapePoints
