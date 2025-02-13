@@ -54,8 +54,8 @@ evaluateNode(node) {
   } // Each type has its own evaluate method called. If it is not a type defined here, the program throws an error.
 }
 
-evaluateForLoop(node) {
-  const start = this.evaluateExpression(node.start);
+evaluateForLoop(node) { // If the type of the node is a for loop, this part starts.
+  const start = this.evaluateExpression(node.start); // Sets the start, the end, and the step of the for loop to constants.
   const end = this.evaluateExpression(node.end);
   const step = this.evaluateExpression(node.step);
   
@@ -82,15 +82,15 @@ evaluateForLoop(node) {
   // Clean up the iterator
   this.env.parameters.delete(node.iterator);
 }
-  evaluateIfStatement(node) {
-    const condition = this.evaluateExpression(node.condition);
-    if (this.isTruthy(condition)) {
+  evaluateIfStatement(node) { // If the type of the node is an if statement, this part starts.
+    const condition = this.evaluateExpression(node.condition); // This part creates a condition constant that has a value based on the evaluateExpression method (further explained below).
+    if (this.isTruthy(condition)) { // This part activates depending on the condition and the isTruthy method (further explained below).
       for (const statement of node.thenBranch) {
-        this.evaluateNode(statement);
+        this.evaluateNode(statement); // Calls the evaluateNode method with a node.thenBranch as its input.
       }
     } else if (node.elseBranch && node.elseBranch.length > 0) {
       for (const statement of node.elseBranch) {
-        this.evaluateNode(statement);
+        this.evaluateNode(statement); // Calls the evaluateNode method with a node.elseBranch as its input.
       }
     }
   }
@@ -102,13 +102,13 @@ evaluateForLoop(node) {
     if (Array.isArray(value)) return value.length > 0;
     if (value === null || value === undefined) return false;
     return true;
-  }
+  } // This returns false only when the given value isn't 0, doesn't have 0 length, and when it's not null or undefined.
 
   evaluateParam(node) {
     const value = this.evaluateExpression(node.value);
     this.env.setParameter(node.name, value);
     return value;
-  }
+  } 
 
   evaluateShape(node) {
     const params = {};
