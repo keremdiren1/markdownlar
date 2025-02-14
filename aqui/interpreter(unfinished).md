@@ -133,7 +133,7 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
         scale: [1, 1]
       }
     };
-  }
+  } // This part creates a method that turns a Shape to a Path by taking its points. It, however, does not take its scale, position, or rotation.
 
   
 
