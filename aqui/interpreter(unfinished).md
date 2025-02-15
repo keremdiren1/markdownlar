@@ -22,7 +22,7 @@ export class Interpreter {
 
  // Add to Interpreter class
 evaluateNode(node) {
-  // If we're in a loop and this is a shape node, add the loop counter to the name
+  // If we're in a loop and this is a shape node, add the loop counter to the name.
   if (node.type === 'shape' && this.currentLoopCounter !== undefined) {
     node = {
       ...node,
@@ -83,14 +83,14 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
   this.env.parameters.delete(node.iterator);
 }
   evaluateIfStatement(node) { // If the type of the node is an if statement, this part starts.
-    const condition = this.evaluateExpression(node.condition); // This part creates a condition constant that has a value based on the evaluateExpression method (further explained below).
-    if (this.isTruthy(condition)) { // This part activates depending on the condition and the isTruthy method (further explained below).
+    const condition = this.evaluateExpression(node.condition); // This part creates a condition constant that has a value based on the evaluateExpression method.
+    if (this.isTruthy(condition)) { // This part activates depending on the condition and the isTruthy method, which returns true or false depending on condition.
       for (const statement of node.thenBranch) {
-        this.evaluateNode(statement); // Calls the evaluateNode method with a node.thenBranch as its input.
+        this.evaluateNode(statement); // Calls the evaluateNode method, which executes the code in the if statement.
       }
     } else if (node.elseBranch && node.elseBranch.length > 0) {
       for (const statement of node.elseBranch) {
-        this.evaluateNode(statement); // Calls the evaluateNode method with a node.elseBranch as its input.
+        this.evaluateNode(statement); // Calls the evaluateNode method, which executes the code in the else statement (if there is one).
       }
     }
   }
@@ -102,13 +102,13 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
     if (Array.isArray(value)) return value.length > 0;
     if (value === null || value === undefined) return false;
     return true;
-  } // This returns false only when the given value isn't 0, doesn't have 0 length, and when it's not null or undefined.
+  } // This returns false only when the given value isn't 0, doesn't have 0 length, and when it's not null or undefined. It also returns a falsy value (0 etc.) if it is one.
 
   evaluateParam(node) {
     const value = this.evaluateExpression(node.value);
     this.env.setParameter(node.name, value);
     return value;
-  } // This part creates a method that changes the value corresponding to the node's name to the value value returned by evaluateExpression.
+  } // This part creates a method that changes the value corresponding to the node's name to the value returned by evaluateExpression.
 
   evaluateShape(node) {
     const params = {};
@@ -116,7 +116,7 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
       params[key] = this.evaluateExpression(expr);
     }
     return this.env.createShape(node.shapeType, node.name, params);
-  } // This part creates a method that changes the params of a Shape with the ones returned by evaluateExpression (further explained below).
+  } // This part creates a method that changes the parameters of a Shape with the evaluated ones (returned by evaluateExpression).
 
   shapeToPath(shape) {
     // Convert any shape to a path using ShapePoints
@@ -146,8 +146,8 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
           rotation: 0,
           scale: [1, 1]
       }
-  };
-    for (const cmd of node.commands) {
+  }; // This part initializes a layer object.
+    for (const cmd of node.commands) { // This part looks through each command in node.
       switch (cmd.type) {
         case 'add': {
             // Just store the shape name in the layer
@@ -155,77 +155,77 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
             break;
         }
         case 'rotate': {
-            const angle = this.evaluateExpression(cmd.angle);
+            const angle = this.evaluateExpression(cmd.angle); // it first gets the rotation angle.
             // Directly modify shapes in this layer
             for (const shapeName of layer.shapes) {
                 const shape = this.env.getShape(shapeName);
                 if (shape) {
-                    shape.transform.rotation = (shape.transform.rotation || 0) + angle;
+                    shape.transform.rotation = (shape.transform.rotation || 0) + angle; // updates every shape in node to make them rotate.
                 }
             }
             break;
         }
       }
     }
-    return layer;
+    return layer; // The updated layer now has the needed transformations applied.
   }
   evaluateTransform(node) {
-    const target = this.env.shapes.get(node.target) || this.env.layers.get(node.target);
-    if (!target) {
+    const target = this.env.shapes.get(node.target) || this.env.layers.get(node.target); // first checks whether node.target is a shape or not. If not, it checks whether it's a layer or not.
+    if (!target) { // if it's neither, the program throws an error.
       throw new Error(`Transform target not found: ${node.target}`);
     }
-    for (const op of node.operations) {
+    for (const op of node.operations) { // the program loops through each operation in node.
       switch (op.type) {
-        case 'scale': {
-          const scaleVal = this.evaluateExpression(op.value);
+        case 'scale': { // if it's a scale, it scales the object to the given value.
+          const scaleVal = this.evaluateExpression(op.value); // this part returns the value the object should be scaled by.
           target.transform.scale = [scaleVal, scaleVal];
           break;
         }
-        case 'rotate': {
-          const angle = this.evaluateExpression(op.angle);
+        case 'rotate': { // if it's a rotate, it rotates the object to the given value.
+          const angle = this.evaluateExpression(op.angle); // this part returns the angle the object should be rotated by.
           target.transform.rotation += angle;
           break;
         }
-        case 'translate': {
-          const [x, y] = this.evaluateExpression(op.value);
+        case 'translate': { // if it's a translate, it translates the object by the given coordinates.
+          const [x, y] = this.evaluateExpression(op.value); // this part returns the coordinates the object should be changed by.
           target.transform.position = [x, y];
           break;
         }
-        default:
+        default: // if the type of operation is neither of the three, the program throws an error.
           throw new Error(`Unknown transform operation: ${op.type}`);
       }
     }
-    return target;
+    return target; // the shape/layer is returned after every operation is applied to it.
   }
 
   evaluateExpression(expr) {
     switch (expr.type) {
       case 'number':   return expr.value;
       case 'string':   return expr.value;
-      case 'boolean':  return expr.value;
+      case 'boolean':  return expr.value; // returns the value directly if the expression is a number, string, or a boolean.
       case 'identifier': {
         if (expr.name.startsWith('param.')) {
           const paramName = expr.name.split('.')[1];
           return this.env.getParameter(paramName);
         }
         return this.env.getParameter(expr.name);
-      }
-      case 'comparison': return this.evaluateComparison(expr);
-      case 'logical_op': return this.evaluateLogicalOp(expr);
+      } // if it's an identifier, the program returns the parameter associated with that identifier.
+      case 'comparison': return this.evaluateComparison(expr); // returns true or false based on the evaluation.
+      case 'logical_op': return this.evaluateLogicalOp(expr); // returns true or false based on the boolean operation.
       case 'binary_op': {
         const left = this.evaluateExpression(expr.left);
         const right = this.evaluateExpression(expr.right);
         return this.evaluateBinaryOp(expr.operator, left, right);
-      }
+      } // the program returns binary operations after it evaluates them. binary operations are stuff like 1 + 2 etc.
       case 'unary_op': {
         const operand = this.evaluateExpression(expr.operand);
         if (expr.operator === 'not') return !this.isTruthy(operand);
         return expr.operator === 'minus' ? -operand : +operand;
-      }
+      } // if the operation is not or minus, it returns the operand after the it uses not or minus on it.
       case 'array':
-        return expr.elements.map(e => this.evaluateExpression(e));
+        return expr.elements.map(e => this.evaluateExpression(e)); // if the expression's an array, the program returns it after it evaluates each value in the array.
       default:
-        throw new Error(`Unknown expression type: ${expr.type}`);
+        throw new Error(`Unknown expression type: ${expr.type}`); // the program returns an error if the expression is not defined.
     }
   }
 
@@ -242,7 +242,7 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
       case 'greater_equals': return left >= right;
       default:
         throw new Error(`Unknown comparison operator: ${expr.operator}`);
-    }
+    } // this part returns the boolean value which is the result of the comparison of the two sides of a comparison. it throws an error if it does not have a comparison defined by the program.
   }
 
   evaluateLogicalOp(expr) {
@@ -251,13 +251,13 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
     // Short-circuit evaluation
     if (expr.operator === 'and') {
       return this.isTruthy(left) ? this.isTruthy(this.evaluateExpression(expr.right)) : false;
-    }
+    } // this part evaluates the left side of the operation; it operates the right side if the value is true.
     if (expr.operator === 'or') {
       return this.isTruthy(left) ? true : this.isTruthy(this.evaluateExpression(expr.right));
-    }
+    } // this part evaluates the left side of the operation; it operates the right side if the value is false.
     
-    throw new Error(`Unknown logical operator: ${expr.operator}`);
-  }
+    throw new Error(`Unknown logical operator: ${expr.operator}`); // throws an error for logical operations not defined here.
+  } // this is basically short-circuit evaluation.
 
   evaluateBinaryOp(operator, left, right) {
     switch (operator) {
@@ -269,7 +269,7 @@ evaluateForLoop(node) { // If the type of the node is a for loop, this part star
         return left / right;
       default:
         throw new Error(`Unknown binary operator: ${operator}`);
-    }
+    } // this part basically does the binary operation and returns the result. it, however, returns an error if the operation has a division by zero or an unknown type of operation.
   }
 }
 ```
