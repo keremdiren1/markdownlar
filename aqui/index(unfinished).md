@@ -161,7 +161,7 @@
       lineNumbers: true,
       autoCloseBrackets: true,
       matchBrackets: true
-    });
+    }); // This part makes it so that the part that had an id of "code-editor" has coding syntax. The lines have numbers, writing "(" automatically places ")", matching brackets are highlighted etc. The type of code is set to aqui.
 
     // Preload example code
     editor.setValue(`//Aqui`);
