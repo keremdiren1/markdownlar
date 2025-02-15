@@ -7,7 +7,7 @@ export class Token {
     this.line = line;
     this.column = column;
   }
-}
+} // this part exports the Token class while also assigning a custom constructor for it.
 
 export class Lexer {
   constructor(input) {
@@ -16,7 +16,7 @@ export class Lexer {
     this.line = 1;
     this.column = 1;
     this.currentChar = this.input[0] || null;
-  }
+  } // This part exports the Lexer class while also assigning a custom constructor for it.
 
   error(message) {
     throw new Error(`Lexer error at line ${this.line}, col ${this.column}: ${message}`);
