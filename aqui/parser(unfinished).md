@@ -16,10 +16,10 @@ export class Parser {
     if (this.currentToken.type === tokenType) {
       const token = this.currentToken;
       this.currentToken = this.lexer.getNextToken();
-      return token;
+      return token; // This part looks whether the current Token type is the same as the inputted one or not. If it is, the program changes the current Token to the next one and returns the old one.
     } else {
       this.error(`Expected ${tokenType} but got ${this.currentToken.type}`);
-    }
+    } // If the Token types do not match, an error is thrown.
   }
 
   // New method for parsing conditional expressions
@@ -30,34 +30,34 @@ export class Parser {
 
   // Parse logical OR operations
   parseLogicalOr() {
-    let expr = this.parseLogicalAnd();
+    let expr = this.parseLogicalAnd(); // Evaluates the left side of an operation like (true && false || false && true). Then, the Token changes to the next one, as specified below.
 
-    while (this.currentToken.type === 'OR') {
-      const operator = this.currentToken.type;
-      this.eat('OR');
+    while (this.currentToken.type === 'OR') { // Starts if the current Token is an 'OR'.
+      const operator = this.currentToken.type; // Sets the operator to 'OR'.
+      this.eat('OR'); // Changes to the next Token.
       expr = {
         type: 'logical_op',
         operator: 'or',
         left: expr,
-        right: this.parseLogicalAnd()
-      };
+        right: this.parseLogicalAnd() // Evaluates the right side of an operation. Then, the Token changes to the next one, as specified below.
+      }; // Creates a 'logical_op' type expression with 'or' as its operator. The program assigns this expression to the variable named expr.
     }
     return expr;
   }
 
   // Parse logical AND operations
   parseLogicalAnd() {
-    let expr = this.parseComparison();
+    let expr = this.parseComparison(); // Evaluates the left side of an operation like (true && false). Then, the Token changes to the next one, as specified below.
 
-    while (this.currentToken.type === 'AND') {
-      const operator = this.currentToken.type;
-      this.eat('AND');
+    while (this.currentToken.type === 'AND') { // Starts if the current Token is an 'AND'.
+      const operator = this.currentToken.type; // Sets the operator to 'AND'.
+      this.eat('AND'); // Changes to the next Token.
       expr = {
         type: 'logical_op',
         operator: 'and',
         left: expr,
-        right: this.parseComparison()
-      };
+        right: this.parseComparison() // Evaluates the right side of an operation. Then, the Token changes to the next one, as specified below.
+      }; // Creates a 'logical_op' type expression with 'and' as its operator. The program assigns this expression to the variable named expr.
     }
     return expr;
   }
