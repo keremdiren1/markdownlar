@@ -103,49 +103,49 @@ export class Lexer {
     
     const type = keywords[result.toLowerCase()] || 'IDENTIFIER';
     return new Token(type, result, this.line, this.column);
-  }
+  } // This part checks whether the given word is a keyword or not. If it's not, it returns the type as 'IDENTIFIER'.
 
   getNextToken() {
     while (this.currentChar !== null) {
       if (this.currentChar === '/' && this.input[this.position + 1] === '/') {
         this.skipComment();
         continue;
-      }
+      } // If the current character is a comment, the program skips it.
       
       if (/\s/.test(this.currentChar)) {
         this.skipWhitespace();
         continue;
-      }
+      } // If the current character is a a line end, the program goes to the next line.
       
       if (/\d/.test(this.currentChar)) {
         return this.number();
-      }
+      } // If the current character is a number, the program returns it.
       
       if (/[a-zA-Z_]/.test(this.currentChar)) {
         return this.identifier();
-      }
+      } // If the current character is an identifier, the program returns it.
 
       // Add comparison operators
       if (this.currentChar === '=' && this.input[this.position + 1] === '=') {
         this.advance();
         this.advance();
         return new Token('EQUALS', '==', this.line, this.column - 1);
-      }
+      } // If the current character is 'EQUALS', the program returns a new token representing it.
 
       if (this.currentChar === '!' && this.input[this.position + 1] === '=') {
         this.advance();
         this.advance();
         return new Token('NOT_EQUALS', '!=', this.line, this.column - 1);
-      }
+      } // If the current character is 'NOT_EQUALS', the program returns a new token representing it.
 
       if (this.currentChar === '<') {
         this.advance();
         if (this.currentChar === '=') {
           this.advance();
           return new Token('LESS_EQUALS', '<=', this.line, this.column - 1);
-        }
+        } // If the current character is 'LESS_EQUALS', the program returns a new token representing it.
         return new Token('LESS', '<', this.line, this.column);
-      }
+      } // If the current character does not have '=' in it, the program returns a new token representing 'LESS' since it had already verified the character had 'LESS'.
 
       if (this.currentChar === '>') {
         this.advance();
@@ -154,7 +154,7 @@ export class Lexer {
           return new Token('GREATER_EQUALS', '>=', this.line, this.column - 1);
         }
         return new Token('GREATER', '>', this.line, this.column);
-      }
+      } // This part is the same as the one above (the part about 'LESS' and 'LESS_EQUALS'). The only difference is that this is about 'GREATER' instead of 'LESS'.
 
       // Basic operators and symbols
       switch (this.currentChar) {
@@ -202,9 +202,9 @@ export class Lexer {
           return new Token('RPAREN', ')', this.line, this.column);
         default:
           this.error(`Unknown character: ${this.currentChar}`);
-      }
+      } // This part first finds the type of the character. It then returns a Token representing the type of the character. This part returns an error if the type of the character is not defined.
     }
-    return new Token('EOF', null, this.line, this.column);
+    return new Token('EOF', null, this.line, this.column); // This part returns a Token which shows the fact that the file has come to an end. (EOF means End OF File)
   }
 }
 ```
