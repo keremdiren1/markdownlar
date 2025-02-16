@@ -6,11 +6,11 @@ export class Parser {
   constructor(lexer) {
     this.lexer = lexer;
     this.currentToken = this.lexer.getNextToken();
-  }
+  } // This part is the constructor for the class named Parser.
 
   error(message) {
     throw new Error(`Parser error at line ${this.currentToken.line}, col ${this.currentToken.column}: ${message}`);
-  }
+  } // This part is a function that helps with throwing errors.
 
   eat(tokenType) {
     if (this.currentToken.type === tokenType) {
