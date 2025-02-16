@@ -77,7 +77,7 @@ export class Parser {
       };
     }
     return expr;
-  }
+  } // This part is basically the same as the two above it (parseLogicalAnd and parseLogicalOr). The only difference is that this one deals with operations containing 'EQUALS', 'NOT_EQUALS', 'LESS', 'LESS_EQUALS', 'GREATER', and 'GREATER_EQUALS'. Also, the type of this expression is set to 'comparison'.
 
   parseExpression() {
     let node = this.parseTerm();
@@ -92,7 +92,7 @@ export class Parser {
       };
     }
     return node;
-  }
+  } // This part is basically the same as the ones above it. The only difference is that this one deals with operations containing 'PLUS' and 'MINUS'. Also, the type of this expression is set to 'binary_op'.
 
   parseTerm() {
     let node = this.parseFactor();
@@ -107,19 +107,19 @@ export class Parser {
       };
     }
     return node;
-  }
+  } // This part is basically the same as the one above it. The only difference is that this one deals with operations containing 'MULTIPLY' and 'DIVIDE' instead of 'PLUS' and 'MINUS'.
 
   parseFactor() {
-    const token = this.currentToken;
+    const token = this.currentToken; // gets the current Token.
     
     if (token.type === 'NUMBER') {
       this.eat('NUMBER');
-      return { type: 'number', value: token.value };
+      return { type: 'number', value: token.value }; // returns the Token with the type 'number' if the type of the Token is 'NUMBER'.
     } 
     
     if (token.type === 'TRUE' || token.type === 'FALSE') {
       this.eat(token.type);
-      return { type: 'boolean', value: token.type === 'TRUE' };
+      return { type: 'boolean', value: token.type === 'TRUE' }; // returns the Token with the type 'boolean' if the type of the Token is 'TRUE' or 'FALSE'.
     }
     
     if (token.type === 'NOT') {
@@ -128,7 +128,7 @@ export class Parser {
         type: 'unary_op',
         operator: 'not',
         operand: this.parseFactor()
-      };
+      }; // returns the value of the operation that comes after the 'NOT' type token with a type of 'unary_op'. Also puts 'not' as the operator.
     }
     
     if (token.type === 'IDENTIFIER' || token.type === 'POSITION') {
@@ -141,30 +141,30 @@ export class Parser {
         return { type: 'param_ref', name, property: prop };
       }
       return { type: 'identifier', name };
-    }
+    } // This part returns either an identifier (variable) or a property linked to a variable.
     
     if (token.type === 'MINUS') {
       this.eat('MINUS');
       return { type: 'unary_op', operator: 'minus', operand: this.parseFactor() };
-    }
+    } // This part returns an 'unary_op' type with the operator as 'minus' and the value in front of the 'minus' as the operand.
     
     if (token.type === 'LBRACKET') {
       return this.parseArray();
-    }
+    } // If the type of the Token is left bracket, this part returns the value returned by parseArray.
     
     if (token.type === 'QUOTE') {
       return this.parseStringLiteral();
-    }
+    } // If the type of the Token is quote, this part returns the value returned by parseStringLiteral.
     
     if (token.type === 'LPAREN') {
       this.eat('LPAREN');
       const expr = this.parseCondition();
       this.eat('RPAREN');
       return expr;
-    }
+    } // If the type of the Token is left parenthesis, this part returns the value returned by parseCondition, which is used on the value in the middle of '(' and ')'.
     
     this.error(`Unexpected token in factor: ${token.type}`);
-  }
+  } // If the type is not defined, an error is thrown.
 
   // New method for parsing if statements
   parseIfStatement() {
@@ -186,14 +186,14 @@ export class Parser {
         elseBranch.push(this.parseStatement());
       }
       this.eat('RBRACE');
-    }
+    } // This part basically parses if-else statements. It first looks through the if statement, and then it looks through the else statement. This part uses parseCondition to get the conditions of the if and else statements.
     
     return {
       type: 'if_statement',
       condition,
       thenBranch,
       elseBranch
-    };
+    }; // This part returns an 'if_statement' with its condition, if branch, and else branch.
   }
   parseStringLiteral() {
     let result = '';
@@ -204,7 +204,7 @@ export class Parser {
     }
     this.eat('QUOTE');
     return { type: 'string', value: result.trim() };
-  }
+  } // This part works similar to parseIfStatement. This part, however, works on String Literals. The value returned by this part is a 'string' with the value in the Token that is between the 'QUOTE's.
 
   parseArray() {
     this.eat('LBRACKET');
@@ -221,14 +221,14 @@ export class Parser {
     
     this.eat('RBRACKET');
     return { type: 'array', elements };
-  }
+  } // This part is similar to the two above it. This part, however, works on arrays. The value returned by this part is an 'array' with its elements.
   parseParam() {
     this.eat('PARAM');
     const name = this.currentToken.value;
     this.eat('IDENTIFIER');
     const value = this.parseExpression();
     return { type: 'param', name, value };
-  }
+  } // This part parses parameters. It returns a 'param' with its name and value.
 
   parseShape() {
     this.eat('SHAPE');
@@ -238,13 +238,13 @@ export class Parser {
     if (this.currentToken.type === 'IDENTIFIER') {
       shapeName = this.currentToken.value;
       this.eat('IDENTIFIER');
-    }
+    } // If the type of the token is an 'IDENTIFIER', this shows that the shape has a name, which is set to shapeName.
     this.eat('LBRACE');
     const params = {};
     while (this.currentToken.type !== 'RBRACE') {
       const paramName = this.currentToken.value;
       if (this.currentToken.type !== 'IDENTIFIER' && this.currentToken.type !== 'POSITION') {
-        this.error(`Expected property name, got ${this.currentToken.type}`);
+        this.error(`Expected property name, got ${this.currentToken.type}`); // Throws an error if the type does not match the expectations.
       }
       this.eat(this.currentToken.type);
       this.eat('COLON');
@@ -252,7 +252,7 @@ export class Parser {
     }
     this.eat('RBRACE');
     return { type: 'shape', shapeType, name: shapeName, params };
-  }
+  } // This part parses shapes. It returns a 'shape' with its type, name, and parameters.
 
   parseLayer() {
     this.eat('LAYER');
