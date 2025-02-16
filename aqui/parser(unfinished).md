@@ -1,6 +1,6 @@
 ``` javascript
 // parser.mjs
-import { Token } from './lexer.mjs';
+import { Token } from './lexer.mjs'; // Imports the token class.
 
 export class Parser {
   constructor(lexer) {
