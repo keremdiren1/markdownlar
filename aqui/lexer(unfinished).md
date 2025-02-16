@@ -20,7 +20,7 @@ export class Lexer {
 
   error(message) {
     throw new Error(`Lexer error at line ${this.line}, col ${this.column}: ${message}`);
-  }
+  } // This is a function designed to throw errors depending on its input.
 
   advance() {
     this.position++;
@@ -30,7 +30,7 @@ export class Lexer {
       this.currentChar = this.input[this.position];
       this.column++;
     }
-  }
+  } // This part helps the program read what's written. This part specifically helps us advance through a line.
 
   skipComment() {
     this.advance();
@@ -38,7 +38,7 @@ export class Lexer {
     while (this.currentChar !== null && this.currentChar !== '\n') {
       this.advance();
     }
-  }
+  } // This part makes it so that the program skips parts after comments.
 
   skipWhitespace() {
     while (this.currentChar && /\s/.test(this.currentChar)) {
@@ -48,7 +48,7 @@ export class Lexer {
       }
       this.advance();
     }
-  }
+  } // This part makes it so that the program goes to the next line after it reaches to the end of the current line.
 
   number() {
     let result = '';
@@ -65,7 +65,7 @@ export class Lexer {
       }
     }
     return new Token('NUMBER', parseFloat(result), this.line, this.column);
-  }
+  } // This part detects a number, puts the number to the variable named result, and then returns a Token object with ('NUMBER', parseFloat(result), this.line, this.column) as its parameters.
 
   identifier() {
     let result = '';
