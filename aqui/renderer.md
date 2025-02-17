@@ -29,7 +29,7 @@ export class Renderer {
     this.scale = 1;
     this.setupCanvas();
     window.addEventListener('resize', () => this.setupCanvas());
-  }
+  } // This part creates a constructor for the Renderer class.
 
   setupCanvas() {
     const container = this.canvas.parentElement;
@@ -44,19 +44,19 @@ export class Renderer {
     this.scale = this.canvas.height / 600;
     
     this.clear();
-  }
+  } // This part sets a canvas to render Shapes in.
 
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawBackground();
     this.drawGrid();
     this.drawAxes();
-  }
+  } // This part creates a function which's purpose is to reset the canvas.
 
   drawBackground() {
     this.ctx.fillStyle = '#ffffff';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-  }
+  } This part creates a white background in the canvas.
 
   drawGrid() {
     const gridSize = 50 * this.scale;
@@ -83,7 +83,7 @@ export class Renderer {
       this.ctx.lineTo(this.canvas.width, y);
       this.ctx.stroke();
     }
-  }
+  } // This part creates a light gray grid. The width of the lines is 1.
 
   drawAxes() {
     this.ctx.strokeStyle = '#000000';
@@ -100,7 +100,7 @@ export class Renderer {
     this.ctx.moveTo(this.offsetX, 0);
     this.ctx.lineTo(this.offsetX, this.canvas.height);
     this.ctx.stroke();
-  }
+  } // This part draws the x and y axes. The color of these is black.
 
   // Transform world coordinates to screen coordinates
   transformX(x) {
@@ -141,7 +141,7 @@ export class Renderer {
     }
 
     this.ctx.restore();
-  }
+  } // This part creates a function that draws the given shape by activating its draw method.
 
   // Draw generic shape using Shape classes
   drawGenericShape(type, params) {
@@ -168,7 +168,7 @@ export class Renderer {
 
     this.ctx.stroke();
     this.ctx.fill();
-  }
+  } // This part creates a function that draws a shape depending on the points of that shape. If the shape is not an arc, a path, or a wave, the function closes the space between the first and last point of the shape. The drawn shape has a side width of 2, has black sides, and has a black filled inside that has 10% opacity.
 
   // Create appropriate shape instance
   createShapeInstance(type, params) {
@@ -208,7 +208,7 @@ export class Renderer {
       default:
         console.warn(`Unknown shape type: ${type}`);
         return null;
-    }
+    } // This part creates a function that returns a newly creates shape object depending on the inputted type and parameters. The function returns null and executes console.warn if the shape is not a defined type.
   }
 
   // Draw text
@@ -220,7 +220,7 @@ export class Renderer {
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'middle';
     this.ctx.strokeText(text, 0, 0);
-  }
+  } // This part creates a function that draws a text on the screen. The inforation of the text is dependent on the inputted parameters. The font size and family is also decided by the inputted parameters; they, however, have set default values in case the font size and family is undefined. The text has black color.
 
   // Draw path
   drawPath(params) {
@@ -238,7 +238,7 @@ export class Renderer {
     }
     
     this.ctx.stroke();
-  }
+  } // This part creates a function that draws a path depending on the points given by the parameters inputted into the function. The path is black and has a line width of 2.
 
   // Draw bezier curve
   drawBezier(params) {
@@ -255,7 +255,7 @@ export class Renderer {
       endPoint.x, endPoint.y
     );
     this.ctx.stroke();
-  }
+  } // This part creates a function that draws a bezier curve depending on the start point, end point, and two control points, which are all given by the inputted parameter.
 
   // Draw gear
   drawGear(params) {
@@ -342,6 +342,6 @@ export class Renderer {
         this.ctx.fill();
       }
     }
-  }
+  } // This part creates a function that is used to draw a gear. The gear has black sides with a width of 2. The inside of the gear is painted black and has an opacity of 10%.
 }
 ```
